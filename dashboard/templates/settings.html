@@ -3,28 +3,72 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>API Settings</title>
+  <title>AstroBuildCo Setup</title>
   <style>
-    body{font-family:Arial,sans-serif;margin:0;padding:1rem;background:#f6f6f6;color:#111}h1{font-size:1.4rem}.top{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}.top a{background:#111;color:white;text-align:center;padding:.8rem;border-radius:8px;text-decoration:none;font-weight:700}.card{background:white;border-radius:10px;padding:1rem;margin-top:1rem;box-shadow:0 2px 8px rgba(0,0,0,.08)}label{display:block;font-weight:700;margin-top:.9rem}input{width:100%;box-sizing:border-box;padding:.8rem;border:1px solid #ccc;border-radius:8px;font-size:1rem}.hint{color:#666;font-size:.85rem}button{margin-top:1rem;width:100%;padding:1rem;background:#159947;color:white;border:0;border-radius:8px;font-size:1rem;font-weight:700}.saved{background:#e8ffe8;border:1px solid #159947;padding:.75rem;border-radius:8px;margin-bottom:.75rem}
+    :root{--bg:#080710;--panel:#11101d;--panel2:#17162a;--gold:#f5b942;--purple:#7c3cff;--green:#25d366;--text:#f7f3e8;--muted:#a9a3ba;--line:rgba(255,255,255,.12)}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#080710,#11101d);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.wrap{max-width:980px;margin:0 auto;padding:16px}.hero{border:1px solid var(--line);background:linear-gradient(135deg,rgba(245,185,66,.15),rgba(124,60,255,.18));border-radius:24px;padding:20px}.kicker{color:var(--gold);font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:.75rem}h1{margin:.25rem 0;font-size:1.75rem}.sub{margin:0;color:var(--muted);line-height:1.4}.top{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}.top a{background:rgba(255,255,255,.07);border:1px solid var(--line);border-radius:14px;text-decoration:none;text-align:center;color:var(--text);padding:13px;font-weight:900}.card{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),var(--panel2));border-radius:20px;padding:16px;margin-top:15px}.saved{background:rgba(37,211,102,.13);border:1px solid rgba(37,211,102,.55);padding:.8rem;border-radius:12px;margin-bottom:1rem;font-weight:800}.hint{color:var(--muted);font-size:.9rem;line-height:1.35}.group{margin-top:20px}.group h2{font-size:1.05rem;color:var(--gold);margin:0 0 8px}.field{margin:12px 0}label{display:block;font-weight:900;margin-bottom:7px}input{width:100%;background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:12px;color:var(--text);padding:13px;font-size:1rem}input::placeholder{color:#77718a}button{margin-top:18px;width:100%;padding:1rem;background:linear-gradient(135deg,var(--gold),#ffe4a0);color:#12100b;border:0;border-radius:14px;font-size:1rem;font-weight:900}.mini{font-size:.82rem;color:var(--muted);margin-top:5px}.danger{color:#ffb0b0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:760px){.wrap{padding:12px}.grid,.top{grid-template-columns:1fr}h1{font-size:1.45rem}}
   </style>
 </head>
 <body>
-  <h1>API Settings</h1>
-  <div class="top">
-    <a href="/?password={{ password }}">Dashboard</a>
-    <a href="/settings?password={{ password }}">API Settings</a>
-  </div>
-  <div class="card">
-    {% if saved %}<div class="saved">Saved. Blank fields kept old values.</div>{% endif %}
-    <p class="hint">Enter keys here directly in your own deployed dashboard. Saved secrets are masked.</p>
-    <form method="post" action="/settings/save?password={{ password }}">
-      {% for key in keys %}
-        <label>{{ key }}</label>
-        <input name="{{ key }}" placeholder="{% if masked[key] %}Current: {{ masked[key] }}{% else %}Enter {{ key }}{% endif %}">
-        <div class="hint">Leave blank to keep saved value.</div>
-      {% endfor %}
-      <button type="submit">Save API Settings</button>
-    </form>
+  <div class="wrap">
+    <div class="hero">
+      <div class="kicker">AstroBuildCo Beast Agent v2</div>
+      <h1>Setup / API Settings</h1>
+      <p class="sub">Enter keys and email server settings here. Secrets are masked after saving. Blank fields keep the existing value.</p>
+      <div class="top">
+        <a href="/?password={{ password }}">Back to Command Center</a>
+        <a href="/settings?password={{ password }}">Refresh Settings</a>
+      </div>
+    </div>
+
+    <div class="card">
+      {% if saved %}<div class="saved">Saved. Blank fields kept old values.</div>{% endif %}
+      <p class="hint"><b>Safe rule:</b> this dashboard drafts and queues work. Keep APPROVAL_REQUIRED set to true so nothing is treated as approved without you reviewing it.</p>
+      <form method="post" action="/settings/save?password={{ password }}">
+        <div class="group">
+          <h2>AI Brain</h2>
+          <div class="field"><label>OPENAI_API_KEY</label><input name="OPENAI_API_KEY" placeholder="{% if masked['OPENAI_API_KEY'] %}Current: {{ masked['OPENAI_API_KEY'] }}{% else %}sk-...{% endif %}"><div class="mini">Needed later for stronger drafting and summaries.</div></div>
+        </div>
+
+        <div class="group">
+          <h2>Email Reading (IMAP)</h2>
+          <div class="grid">
+            <div class="field"><label>EMAIL_PROVIDER</label><input name="EMAIL_PROVIDER" placeholder="{% if masked['EMAIL_PROVIDER'] %}Current: {{ masked['EMAIL_PROVIDER'] }}{% else %}Spectrum / Gmail / Outlook{% endif %}"></div>
+            <div class="field"><label>IMAP_HOST</label><input name="IMAP_HOST" placeholder="{% if masked['IMAP_HOST'] %}Current: {{ masked['IMAP_HOST'] }}{% else %}mail.twcbc.com or imap.gmail.com{% endif %}"></div>
+            <div class="field"><label>IMAP_PORT</label><input name="IMAP_PORT" placeholder="{% if masked['IMAP_PORT'] %}Current: {{ masked['IMAP_PORT'] }}{% else %}993{% endif %}"></div>
+            <div class="field"><label>IMAP_USER</label><input name="IMAP_USER" placeholder="{% if masked['IMAP_USER'] %}Current: {{ masked['IMAP_USER'] }}{% else %}your business email{% endif %}"></div>
+          </div>
+          <div class="field"><label>IMAP_PASSWORD</label><input name="IMAP_PASSWORD" type="password" placeholder="{% if masked['IMAP_PASSWORD'] %}Current: {{ masked['IMAP_PASSWORD'] }}{% else %}email password or app password{% endif %}"></div>
+        </div>
+
+        <div class="group">
+          <h2>Email Sending (SMTP)</h2>
+          <div class="grid">
+            <div class="field"><label>SMTP_HOST</label><input name="SMTP_HOST" placeholder="{% if masked['SMTP_HOST'] %}Current: {{ masked['SMTP_HOST'] }}{% else %}smtp.gmail.com / mail server{% endif %}"></div>
+            <div class="field"><label>SMTP_PORT</label><input name="SMTP_PORT" placeholder="{% if masked['SMTP_PORT'] %}Current: {{ masked['SMTP_PORT'] }}{% else %}465 or 587{% endif %}"></div>
+            <div class="field"><label>SMTP_USER</label><input name="SMTP_USER" placeholder="{% if masked['SMTP_USER'] %}Current: {{ masked['SMTP_USER'] }}{% else %}your business email{% endif %}"></div>
+            <div class="field"><label>SMTP_PASSWORD</label><input name="SMTP_PASSWORD" type="password" placeholder="{% if masked['SMTP_PASSWORD'] %}Current: {{ masked['SMTP_PASSWORD'] }}{% else %}email password or app password{% endif %}"></div>
+          </div>
+          <div class="mini danger">Sending hooks are not active yet. This is staged for future approved send workflow.</div>
+        </div>
+
+        <div class="group">
+          <h2>Facebook / Meta</h2>
+          <div class="grid">
+            <div class="field"><label>META_PAGE_ID</label><input name="META_PAGE_ID" placeholder="{% if masked['META_PAGE_ID'] %}Current: {{ masked['META_PAGE_ID'] }}{% else %}Facebook page ID{% endif %}"></div>
+            <div class="field"><label>META_PAGE_ACCESS_TOKEN</label><input name="META_PAGE_ACCESS_TOKEN" type="password" placeholder="{% if masked['META_PAGE_ACCESS_TOKEN'] %}Current: {{ masked['META_PAGE_ACCESS_TOKEN'] }}{% else %}page token{% endif %}"></div>
+          </div>
+        </div>
+
+        <div class="group">
+          <h2>Safety / Timezone</h2>
+          <div class="grid">
+            <div class="field"><label>APPROVAL_REQUIRED</label><input name="APPROVAL_REQUIRED" placeholder="{% if masked['APPROVAL_REQUIRED'] %}Current: {{ masked['APPROVAL_REQUIRED'] }}{% else %}true{% endif %}"></div>
+            <div class="field"><label>TIMEZONE</label><input name="TIMEZONE" placeholder="{% if masked['TIMEZONE'] %}Current: {{ masked['TIMEZONE'] }}{% else %}America/New_York{% endif %}"></div>
+          </div>
+        </div>
+        <button type="submit">Save Settings</button>
+      </form>
+    </div>
   </div>
 </body>
 </html>
