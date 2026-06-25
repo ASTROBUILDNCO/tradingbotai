@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AstroBuild&Co. Beast Agent</title>
+  <style>
+    body{font-family:Arial,sans-serif;margin:0;padding:1rem;background:#f6f6f6;color:#111}h1{font-size:1.4rem}.top,.grid,.actions{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}.top a{background:#111;color:white;text-align:center;padding:.8rem;border-radius:8px;text-decoration:none;font-weight:700}.grid{margin:1rem 0}button{width:100%;padding:.95rem;border:0;border-radius:8px;font-weight:700;font-size:1rem}.run{background:#0b66ff;color:white}.approve{background:#159947;color:white}.skip{background:#ca2b2b;color:white}.card{background:white;border-radius:10px;padding:1rem;margin-bottom:1rem;box-shadow:0 2px 8px rgba(0,0,0,.08)}pre{white-space:pre-wrap;overflow-wrap:anywhere}.muted{color:#666;font-size:.9rem}
+  </style>
+</head>
+<body>
+  <h1>AstroBuild&Co. Beast Agent</h1>
+  <div class="top">
+    <a href="/?password={{ password }}">Dashboard</a>
+    <a href="/settings?password={{ password }}">API Settings</a>
+  </div>
+  <div class="grid">
+    <form method="post" action="/api/run/morning?password={{ password }}"><button class="run">Run Morning</button></form>
+    <form method="post" action="/api/run/midday?password={{ password }}"><button class="run">Run Midday</button></form>
+    <form method="post" action="/api/run/evening?password={{ password }}"><button class="run">Run Evening</button></form>
+    <form method="post" action="/api/run/check_email?password={{ password }}"><button class="run">Check Email</button></form>
+    <form method="post" action="/api/run/draft_facebook_post?password={{ password }}"><button class="run">Draft FB Post</button></form>
+    <form method="get" action="/"><input type="hidden" name="password" value="{{ password }}"><button class="run">Refresh Queue</button></form>
+  </div>
+  {% if tasks %}
+    {% for action_id, task in tasks.items() %}
+      <div class="card">
+        <strong>{{ task.get('description', 'Pending Action') }}</strong>
+        <div class="muted">Type: {{ task.get('type', 'unknown') }} | Risk: {{ task.get('risk', 'unknown') }}</div>
+        <div class="muted">Destination: {{ task.get('destination', '') }}</div>
+        <pre>{{ task.get('draft', '') }}</pre>
+        <div class="muted">Reason: {{ task.get('reason', '') }}</div><br>
+        <div class="actions">
+          <form method="post" action="/api/approve/{{ action_id }}?password={{ password }}"><button class="approve">Approve</button></form>
+          <form method="post" action="/api/skip/{{ action_id }}?password={{ password }}"><button class="skip">Skip</button></form>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="card"><strong>No pending actions.</strong><p class="muted">Run a routine to create drafts.</p></div>
+  {% endif %}
+</body>
+</html>
