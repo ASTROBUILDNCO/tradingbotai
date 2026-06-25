@@ -3,41 +3,74 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AstroBuild&Co. Beast Agent</title>
+  <title>AstroBuildCo Command Center</title>
   <style>
-    body{font-family:Arial,sans-serif;margin:0;padding:1rem;background:#f6f6f6;color:#111}h1{font-size:1.4rem}.top,.grid,.actions{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}.top a{background:#111;color:white;text-align:center;padding:.8rem;border-radius:8px;text-decoration:none;font-weight:700}.grid{margin:1rem 0}button{width:100%;padding:.95rem;border:0;border-radius:8px;font-weight:700;font-size:1rem}.run{background:#0b66ff;color:white}.approve{background:#159947;color:white}.skip{background:#ca2b2b;color:white}.card{background:white;border-radius:10px;padding:1rem;margin-bottom:1rem;box-shadow:0 2px 8px rgba(0,0,0,.08)}pre{white-space:pre-wrap;overflow-wrap:anywhere}.muted{color:#666;font-size:.9rem}
+    :root{--bg:#080710;--panel:#11101d;--panel2:#17162a;--gold:#f5b942;--purple:#7c3cff;--green:#25d366;--red:#ff4d4d;--text:#f7f3e8;--muted:#a9a3ba;--line:rgba(255,255,255,.12)}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,rgba(124,60,255,.35),transparent 30%),linear-gradient(180deg,#080710,#0d0b16 50%,#080710);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}a{color:inherit}.wrap{max-width:1100px;margin:0 auto;padding:18px}.hero{border:1px solid var(--line);background:linear-gradient(135deg,rgba(245,185,66,.16),rgba(124,60,255,.18));border-radius:24px;padding:20px;box-shadow:0 18px 60px rgba(0,0,0,.35)}.brand{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.logo{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,var(--gold),var(--purple));display:grid;place-items:center;color:#080710;font-weight:900}.kicker{color:var(--gold);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:.75rem}.title{font-size:1.9rem;margin:.25rem 0;font-weight:900}.sub{color:var(--muted);line-height:1.35;margin:0}.status{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:rgba(0,0,0,.25);border-radius:999px;padding:8px 12px;font-weight:800;font-size:.82rem}.dot{width:9px;height:9px;background:var(--green);border-radius:50%;box-shadow:0 0 14px var(--green)}.nav{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:16px}.nav a,.ghost{display:block;text-align:center;text-decoration:none;border:1px solid var(--line);background:rgba(255,255,255,.06);padding:13px;border-radius:14px;font-weight:800}.section{margin-top:18px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.run-card{border:1px solid var(--line);background:var(--panel);border-radius:18px;padding:14px}.run-card h3{margin:0 0 8px;font-size:1rem}.run-card p{margin:0 0 12px;color:var(--muted);font-size:.9rem;line-height:1.35}button{width:100%;padding:13px 14px;border:0;border-radius:13px;font-weight:900;font-size:1rem;cursor:pointer}.run{background:linear-gradient(135deg,var(--gold),#ffe4a0);color:#151008}.blue{background:linear-gradient(135deg,var(--purple),#b196ff);color:white}.green{background:linear-gradient(135deg,#11a84f,var(--green));color:#031009}.danger{background:linear-gradient(135deg,#b81f1f,var(--red));color:white}.queue-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin:22px 0 10px}.queue-head h2{margin:0;font-size:1.25rem}.pill{border:1px solid var(--line);border-radius:999px;padding:7px 11px;color:var(--muted);font-weight:800;font-size:.82rem}.card{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),var(--panel2));border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:0 12px 40px rgba(0,0,0,.25)}.card-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.card strong{font-size:1.05rem}.meta{color:var(--muted);font-size:.86rem;margin-top:5px}.risk{font-size:.75rem;font-weight:900;padding:6px 9px;border-radius:999px;border:1px solid var(--line);text-transform:uppercase}.risk.high{background:rgba(255,77,77,.16);color:#ffb0b0}.risk.medium{background:rgba(245,185,66,.16);color:#ffdc8a}.risk.low{background:rgba(37,211,102,.14);color:#a7ffc8}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:rgba(0,0,0,.22);border:1px solid var(--line);padding:13px;border-radius:14px;color:#f7f3e8;line-height:1.35;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88rem}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.empty{padding:22px;text-align:center}.empty h3{margin:.2rem 0}.setup{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.setup div{border:1px solid var(--line);background:rgba(255,255,255,.05);border-radius:16px;padding:12px}.setup b{display:block;color:var(--gold);margin-bottom:6px}.setup span{color:var(--muted);font-size:.86rem;line-height:1.3}@media(max-width:760px){.wrap{padding:12px}.grid,.setup{grid-template-columns:1fr}.brand{display:block}.status{margin-top:12px}.title{font-size:1.55rem}.nav{grid-template-columns:1fr 1fr}.card-top{display:block}.risk{display:inline-block;margin-top:9px}}
   </style>
 </head>
 <body>
-  <h1>AstroBuild&Co. Beast Agent</h1>
-  <div class="top">
-    <a href="/?password={{ password }}">Dashboard</a>
-    <a href="/settings?password={{ password }}">API Settings</a>
-  </div>
-  <div class="grid">
-    <form method="post" action="/api/run/morning?password={{ password }}"><button class="run">Run Morning</button></form>
-    <form method="post" action="/api/run/midday?password={{ password }}"><button class="run">Run Midday</button></form>
-    <form method="post" action="/api/run/evening?password={{ password }}"><button class="run">Run Evening</button></form>
-    <form method="post" action="/api/run/check_email?password={{ password }}"><button class="run">Check Email</button></form>
-    <form method="post" action="/api/run/draft_facebook_post?password={{ password }}"><button class="run">Draft FB Post</button></form>
-    <form method="get" action="/"><input type="hidden" name="password" value="{{ password }}"><button class="run">Refresh Queue</button></form>
-  </div>
-  {% if tasks %}
-    {% for action_id, task in tasks.items() %}
-      <div class="card">
-        <strong>{{ task.get('description', 'Pending Action') }}</strong>
-        <div class="muted">Type: {{ task.get('type', 'unknown') }} | Risk: {{ task.get('risk', 'unknown') }}</div>
-        <div class="muted">Destination: {{ task.get('destination', '') }}</div>
-        <pre>{{ task.get('draft', '') }}</pre>
-        <div class="muted">Reason: {{ task.get('reason', '') }}</div><br>
-        <div class="actions">
-          <form method="post" action="/api/approve/{{ action_id }}?password={{ password }}"><button class="approve">Approve</button></form>
-          <form method="post" action="/api/skip/{{ action_id }}?password={{ password }}"><button class="skip">Skip</button></form>
+  <div class="wrap">
+    <div class="hero">
+      <div class="brand">
+        <div style="display:flex;gap:12px;align-items:flex-start">
+          <div class="logo">A</div>
+          <div>
+            <div class="kicker">AstroBuildCo Beast Agent v2</div>
+            <div class="title">Command Center</div>
+            <p class="sub">Email triage, RFQ/quote prep, Facebook drafts, daily planning, and approval queue. Built for quick iPhone use in the field.</p>
+          </div>
         </div>
+        <div class="status"><span class="dot"></span> LIVE ON RENDER</div>
       </div>
-    {% endfor %}
-  {% else %}
-    <div class="card"><strong>No pending actions.</strong><p class="muted">Run a routine to create drafts.</p></div>
-  {% endif %}
+      <div class="nav">
+        <a href="/?password={{ password }}">Dashboard</a>
+        <a href="/settings?password={{ password }}">Setup / API Settings</a>
+      </div>
+    </div>
+
+    <div class="section setup">
+      <div><b>1. Setup</b><span>Add OpenAI, IMAP/SMTP, and Facebook keys in settings.</span></div>
+      <div><b>2. Run routine</b><span>Morning, midday, evening, email check, or Facebook draft.</span></div>
+      <div><b>3. Review queue</b><span>Every draft becomes an approval card before action.</span></div>
+      <div><b>4. Approve safely</b><span>Approve only after you verify wording, price, and scope.</span></div>
+    </div>
+
+    <div class="section grid">
+      <div class="run-card"><h3>Morning money scan</h3><p>Email/RFQ check, quote checklist, first Facebook post, and daily priorities.</p><form method="post" action="/api/run/morning?password={{ password }}"><button class="run">Run Morning</button></form></div>
+      <div class="run-card"><h3>Midday follow-up</h3><p>Clear new email, build replies, and keep quote/Facebook momentum moving.</p><form method="post" action="/api/run/midday?password={{ password }}"><button class="blue">Run Midday</button></form></div>
+      <div class="run-card"><h3>Evening closeout</h3><p>Recap work, build tomorrow’s list, and prep follow-up items.</p><form method="post" action="/api/run/evening?password={{ password }}"><button class="blue">Run Evening</button></form></div>
+      <div class="run-card"><h3>Check business email</h3><p>Reads recent IMAP messages if configured and drafts reply cards.</p><form method="post" action="/api/run/check_email?password={{ password }}"><button class="green">Check Email</button></form></div>
+      <div class="run-card"><h3>Facebook engagement</h3><p>Creates AstroBuildCo post options and an engagement question.</p><form method="post" action="/api/run/draft_facebook_post?password={{ password }}"><button class="run">Draft FB Post</button></form></div>
+      <div class="run-card"><h3>Refresh queue</h3><p>Reload current approvals and drafts without creating new ones.</p><form method="get" action="/"><input type="hidden" name="password" value="{{ password }}"><button class="blue">Refresh</button></form></div>
+    </div>
+
+    <div class="queue-head">
+      <h2>Approval Queue</h2>
+      <div class="pill">{{ tasks|length }} pending</div>
+    </div>
+
+    {% if tasks %}
+      {% for action_id, task in tasks.items() %}
+        <div class="card">
+          <div class="card-top">
+            <div>
+              <strong>{{ task.get('description', 'Pending Action') }}</strong>
+              <div class="meta">{{ task.get('type', 'unknown') }} • {{ task.get('destination', '') }} • {{ task.get('created_at', '') }}</div>
+            </div>
+            <div class="risk {{ task.get('risk', 'low') }}">{{ task.get('risk', 'low') }} risk</div>
+          </div>
+          <pre>{{ task.get('draft', '') }}</pre>
+          <div class="meta">Why queued: {{ task.get('reason', '') }}</div><br>
+          <div class="actions">
+            <form method="post" action="/api/approve/{{ action_id }}?password={{ password }}"><button class="green">Approve / Mark Reviewed</button></form>
+            <form method="post" action="/api/skip/{{ action_id }}?password={{ password }}"><button class="danger">Skip</button></form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="card empty"><h3>No pending actions.</h3><p class="meta">Run Morning or Check Email to create useful draft cards.</p></div>
+    {% endif %}
+  </div>
 </body>
 </html>
