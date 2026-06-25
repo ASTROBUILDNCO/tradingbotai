@@ -4,6 +4,7 @@ import email
 import imaplib
 import uuid
 from datetime import datetime
+from email.header import decode_header, make_header
 from email.message import Message
 from typing import Dict, List, Optional
 
@@ -113,8 +114,8 @@ class Orchestrator:
                     continue
                 raw = data[0][1]
                 msg = email.message_from_bytes(raw)
-                subject = email.header.make_header(email.header.decode_header(msg.get("Subject", "No subject")))
-                sender = email.header.make_header(email.header.decode_header(msg.get("From", "Unknown sender")))
+                subject = make_header(decode_header(msg.get("Subject", "No subject")))
+                sender = make_header(decode_header(msg.get("From", "Unknown sender")))
                 body = self._clean_text(msg)
                 category = self._email_category(str(subject), body)
                 emails.append({
