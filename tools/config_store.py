@@ -40,7 +40,10 @@ def _conn():
 def _fernet():
     key = os.getenv("CONFIG_ENCRYPTION_KEY")
     if key and Fernet is not None:
-        return Fernet(key.encode())
+        try:
+            return Fernet(key.encode())
+        except Exception:
+            return None
     return None
 
 
@@ -56,7 +59,10 @@ def decrypt_value(value: str) -> str:
         f = _fernet()
         if not f:
             return ""
-        return f.decrypt(value[len("fernet:"):].encode()).decode()
+        try:
+            return f.decrypt(value[len("fernet:"):].encode()).decode()
+        except Exception:
+            return ""
     if value.startswith("plain:"):
         return value[len("plain:"):]
     return value
