@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: astrobuildco-beast-agent
+    env: python
+    plan: starter
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn dashboard.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DASHBOARD_PASSWORD
+        sync: false
+      - key: CONFIG_ENCRYPTION_KEY
+        sync: false
+      - key: TIMEZONE
+        value: America/New_York
+      - key: APPROVAL_REQUIRED
+        value: "true"
