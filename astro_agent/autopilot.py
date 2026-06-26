@@ -44,20 +44,19 @@ def run_autopilot_once(orchestrator, force: bool = False) -> Dict[str, str]:
     stamp = now.strftime("%Y-%m-%d %H:%M:%S %Z")
     _state["enabled"] = "true"
     _state["last_tick"] = stamp
+    _state["email_ready"] = "true" if _email_ready() else "false"
     actions = []
 
     try:
         today = now.strftime("%Y-%m-%d")
         hour = now.hour
 
-        if force:
-            if _email_ready():
-                orchestrator.check_email()
-                _state["last_email_scan"] = stamp
-                actions.append("email scan")
-            else:
-                orchestrator.add_autopilot_setup_card()
-                actions.append("setup card")
+        if force and _email_ready():
+            orchestrator.check_email()
+            _state["last_email_scan"] = stamp
+            actions.append("email scan")
+        elif force:
+            actions.append("email not connected")
 
         if hour >= 8 and _state.get("morning_date") != today:
             orchestrator.run_morning_routine()
