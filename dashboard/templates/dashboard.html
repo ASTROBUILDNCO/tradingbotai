@@ -3,87 +3,71 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AstroBuildCo Command Center</title>
+  <title>AstroBuildCo Autopilot</title>
   <style>
-    :root{--bg:#080710;--panel:#11101d;--panel2:#17162a;--gold:#f5b942;--purple:#7c3cff;--green:#25d366;--red:#ff4d4d;--text:#f7f3e8;--muted:#a9a3ba;--line:rgba(255,255,255,.12)}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,rgba(124,60,255,.35),transparent 28%),linear-gradient(180deg,#080710,#0d0b16 50%,#080710);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.wrap{max-width:1120px;margin:0 auto;padding:14px}.hero,.card,.tool{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),var(--panel2));border-radius:22px;padding:16px;box-shadow:0 12px 45px rgba(0,0,0,.28)}.hero{background:linear-gradient(135deg,rgba(245,185,66,.16),rgba(124,60,255,.2));margin-bottom:14px}.kicker{color:var(--gold);font-weight:900;letter-spacing:.1em;text-transform:uppercase;font-size:.72rem}.title{font-size:1.75rem;margin:.2rem 0;font-weight:900}.sub{color:var(--muted);margin:0;line-height:1.35}.top{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.top a{display:block;text-decoration:none;text-align:center;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.06);padding:12px;border-radius:14px;font-weight:900}.tools{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-bottom:14px}.tool h2,.queue h2{margin:0 0 7px;font-size:1.15rem}.hint{color:var(--muted);font-size:.9rem;line-height:1.35;margin:0 0 10px}textarea,input{width:100%;border:1px solid var(--line);background:rgba(0,0,0,.28);color:var(--text);border-radius:13px;padding:12px;font-size:1rem}textarea{min-height:170px;resize:vertical}label{display:block;font-weight:900;margin:10px 0 6px}.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.button-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}.button-grid form{margin:0}button{width:100%;border:0;border-radius:13px;padding:13px;font-weight:900;font-size:1rem;cursor:pointer}.gold{background:linear-gradient(135deg,var(--gold),#ffe4a0);color:#151008}.blue{background:linear-gradient(135deg,var(--purple),#b196ff);color:white}.green{background:linear-gradient(135deg,#11a84f,var(--green));color:#031009}.danger{background:linear-gradient(135deg,#b81f1f,var(--red));color:white}.queue-head{display:flex;justify-content:space-between;align-items:center;margin:18px 0 10px}.pill{border:1px solid var(--line);border-radius:999px;padding:7px 11px;color:var(--muted);font-weight:800;font-size:.82rem}.card{margin-bottom:13px}.card-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.card strong{font-size:1.05rem}.meta{color:var(--muted);font-size:.86rem;margin-top:5px}.risk{font-size:.75rem;font-weight:900;padding:6px 9px;border-radius:999px;border:1px solid var(--line);text-transform:uppercase}.risk.high{background:rgba(255,77,77,.16);color:#ffb0b0}.risk.medium{background:rgba(245,185,66,.16);color:#ffdc8a}.risk.low{background:rgba(37,211,102,.14);color:#a7ffc8}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:rgba(0,0,0,.22);border:1px solid var(--line);padding:13px;border-radius:14px;color:#f7f3e8;line-height:1.35;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88rem}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.empty{text-align:center;padding:24px}.quick-note{border:1px solid var(--line);background:rgba(245,185,66,.08);border-radius:16px;padding:12px;margin-bottom:14px;color:#ffe4a0;font-weight:800}@media(max-width:800px){.tools,.mini-grid,.button-grid,.top{grid-template-columns:1fr}.title{font-size:1.45rem}.card-top{display:block}.risk{display:inline-block;margin-top:8px}}
+    :root{--bg:#080710;--panel:#11101d;--panel2:#17162a;--gold:#f5b942;--purple:#7c3cff;--green:#25d366;--red:#ff4d4d;--text:#f7f3e8;--muted:#a9a3ba;--line:rgba(255,255,255,.12)}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,rgba(124,60,255,.35),transparent 28%),linear-gradient(180deg,#080710,#0d0b16 50%,#080710);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.wrap{max-width:1120px;margin:0 auto;padding:14px}.hero,.card,.tool{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),var(--panel2));border-radius:22px;padding:16px;box-shadow:0 12px 45px rgba(0,0,0,.28)}.hero{background:linear-gradient(135deg,rgba(245,185,66,.16),rgba(124,60,255,.2));margin-bottom:14px}.kicker{color:var(--gold);font-weight:900;letter-spacing:.1em;text-transform:uppercase;font-size:.72rem}.title{font-size:1.75rem;margin:.2rem 0;font-weight:900}.sub{color:var(--muted);margin:0;line-height:1.35}.top{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.top a{display:block;text-decoration:none;text-align:center;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.06);padding:12px;border-radius:14px;font-weight:900}.tools{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-bottom:14px}.tool h2{margin:0 0 7px;font-size:1.15rem}.hint{color:var(--muted);font-size:.9rem;line-height:1.35;margin:0 0 10px}textarea,input{width:100%;border:1px solid var(--line);background:rgba(0,0,0,.28);color:var(--text);border-radius:13px;padding:12px;font-size:1rem}textarea{min-height:150px;resize:vertical}label{display:block;font-weight:900;margin:10px 0 6px}.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.button-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}.button-grid form{margin:0}button{width:100%;border:0;border-radius:13px;padding:13px;font-weight:900;font-size:1rem;cursor:pointer}.gold{background:linear-gradient(135deg,var(--gold),#ffe4a0);color:#151008}.blue{background:linear-gradient(135deg,var(--purple),#b196ff);color:white}.green{background:linear-gradient(135deg,#11a84f,var(--green));color:#031009}.danger{background:linear-gradient(135deg,#b81f1f,var(--red));color:white}.queue-head{display:flex;justify-content:space-between;align-items:center;margin:18px 0 10px}.pill{border:1px solid var(--line);border-radius:999px;padding:7px 11px;color:var(--muted);font-weight:800;font-size:.82rem}.card{margin-bottom:13px}.card-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.card strong{font-size:1.05rem}.meta{color:var(--muted);font-size:.86rem;margin-top:5px}.risk{font-size:.75rem;font-weight:900;padding:6px 9px;border-radius:999px;border:1px solid var(--line);text-transform:uppercase}.risk.high{background:rgba(255,77,77,.16);color:#ffb0b0}.risk.medium{background:rgba(245,185,66,.16);color:#ffdc8a}.risk.low{background:rgba(37,211,102,.14);color:#a7ffc8}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:rgba(0,0,0,.22);border:1px solid var(--line);padding:13px;border-radius:14px;color:#f7f3e8;line-height:1.35;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88rem}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.empty{text-align:center;padding:24px}.quick-note{border:1px solid var(--line);background:rgba(37,211,102,.08);border-radius:16px;padding:12px;margin-bottom:14px;color:#a7ffc8;font-weight:800}.statusgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}.statusbox{border:1px solid var(--line);background:rgba(0,0,0,.2);border-radius:14px;padding:10px}.statusbox b{display:block;color:var(--gold);font-size:.78rem;text-transform:uppercase}.statusbox span{color:var(--muted);font-size:.85rem}@media(max-width:800px){.tools,.mini-grid,.button-grid,.top,.statusgrid{grid-template-columns:1fr}.title{font-size:1.45rem}.card-top{display:block}.risk{display:inline-block;margin-top:8px}}
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="hero">
-      <div class="kicker">AstroBuildCo Beast Agent v3</div>
-      <div class="title">Simple Command Center</div>
-      <p class="sub">Useful without setup. Paste a message, build quote math, generate follow-ups, and copy the result. Email/API setup is optional later.</p>
+      <div class="kicker">AstroBuildCo Beast Agent v4</div>
+      <div class="title">Autopilot Command Center</div>
+      <p class="sub">Runs in the background, scans configured email, creates RFQ/reply/follow-up cards, and stops before sending, posting, submitting, spending, or deleting.</p>
+      <div class="statusgrid">
+        <div class="statusbox"><b>Autopilot</b><span>{{ autopilot.get('enabled','unknown') }}</span></div>
+        <div class="statusbox"><b>Email Watch</b><span>{{ autopilot.get('email_ready','false') }}</span></div>
+        <div class="statusbox"><b>Last Tick</b><span>{{ autopilot.get('last_tick','never') }}</span></div>
+        <div class="statusbox"><b>Last Scan</b><span>{{ autopilot.get('last_email_scan','never') }}</span></div>
+      </div>
       <div class="top">
         <a href="/?password={{ password }}">Dashboard</a>
-        <a href="/settings?password={{ password }}">Optional Settings</a>
+        <a href="/settings?password={{ password }}">Connect Email Once</a>
       </div>
     </div>
 
-    <div class="quick-note">Start here: paste any email/RFQ/customer message below. No login tokens, no API keys, no setup needed.</div>
+    <div class="quick-note">Autonomous mode is ON. For real hands-off value, connect business email once in Settings. Until then, use the scan button or paste box.</div>
+
+    <div class="button-grid">
+      <form method="post" action="/api/autopilot/tick?password={{ password }}"><button class="green">Run Autopilot Scan Now</button></form>
+      <form method="post" action="/api/run/morning?password={{ password }}"><button class="gold">Force Morning Plan</button></form>
+      <form method="post" action="/api/run/draft_facebook_post?password={{ password }}"><button class="blue">Draft Facebook Post</button></form>
+    </div>
 
     <div class="tools">
       <div class="tool">
-        <h2>Paste Email / RFQ → Draft Reply</h2>
-        <p class="hint">Copy any solicitation, customer email, text, or RFQ note. The app classifies it and creates a clean reply + questions to verify.</p>
+        <h2>Fallback: Paste Email / RFQ</h2>
+        <p class="hint">Only use this when the email watcher is not connected yet.</p>
         <form method="post" action="/api/quick/paste?password={{ password }}">
           <textarea name="message" placeholder="Paste message here..."></textarea>
           <button class="gold" type="submit">Draft Reply / Next Steps</button>
         </form>
       </div>
-
       <div class="tool">
-        <h2>Quick Quote Math</h2>
-        <p class="hint">Enter rough numbers and it builds a price card. Use this for fast bid gut-checks.</p>
+        <h2>Fast Quote Math</h2>
+        <p class="hint">Autopilot can flag RFQs. Use this to price them fast.</p>
         <form method="post" action="/api/quick/quote?password={{ password }}">
-          <label>Job name</label><input name="job_name" placeholder="Kittyhawk AV / tower site / service call">
+          <label>Job name</label><input name="job_name" placeholder="RFQ / site / service call">
           <div class="mini-grid">
-            <div><label>Labor hours</label><input name="labor_hours" placeholder="24"></div>
-            <div><label>Labor rate</label><input name="labor_rate" placeholder="75"></div>
-            <div><label>Materials</label><input name="materials" placeholder="1000"></div>
-            <div><label>Travel</label><input name="travel" placeholder="250"></div>
-            <div><label>Rental/tools</label><input name="rental" placeholder="0"></div>
-            <div><label>Margin %</label><input name="margin" placeholder="20"></div>
+            <div><label>Labor hours</label><input name="labor_hours" placeholder="24"></div><div><label>Labor rate</label><input name="labor_rate" placeholder="75"></div><div><label>Materials</label><input name="materials" placeholder="1000"></div><div><label>Travel</label><input name="travel" placeholder="250"></div><div><label>Rental/tools</label><input name="rental" placeholder="0"></div><div><label>Margin %</label><input name="margin" placeholder="20"></div>
           </div>
           <button class="green" type="submit">Build Quote Card</button>
         </form>
       </div>
     </div>
 
-    <div class="button-grid">
-      <form method="post" action="/api/run/morning?password={{ password }}"><button class="gold">Morning Plan</button></form>
-      <form method="post" action="/api/run/draft_facebook_post?password={{ password }}"><button class="blue">Facebook Post</button></form>
-      <form method="post" action="/api/run/check_email?password={{ password }}"><button class="green">Optional Auto Email</button></form>
-      <form method="post" action="/api/run/midday?password={{ password }}"><button class="blue">Midday Check</button></form>
-      <form method="post" action="/api/run/evening?password={{ password }}"><button class="blue">Evening Closeout</button></form>
-      <form method="get" action="/"><input type="hidden" name="password" value="{{ password }}"><button class="blue">Refresh Queue</button></form>
-    </div>
-
-    <div class="queue-head">
-      <h2>Output Cards</h2>
-      <div class="pill">{{ tasks|length }} pending</div>
-    </div>
-
+    <div class="queue-head"><h2>Autopilot Output Cards</h2><div class="pill">{{ tasks|length }} pending</div></div>
     {% if tasks %}
       {% for action_id, task in tasks.items() %}
         <div class="card">
-          <div class="card-top">
-            <div>
-              <strong>{{ task.get('description', 'Output Card') }}</strong>
-              <div class="meta">{{ task.get('type', 'unknown') }} • {{ task.get('destination', '') }} • {{ task.get('created_at', '') }}</div>
-            </div>
-            <div class="risk {{ task.get('risk', 'low') }}">{{ task.get('risk', 'low') }} risk</div>
-          </div>
+          <div class="card-top"><div><strong>{{ task.get('description', 'Output Card') }}</strong><div class="meta">{{ task.get('type', 'unknown') }} • {{ task.get('destination', '') }} • {{ task.get('created_at', '') }}</div></div><div class="risk {{ task.get('risk', 'low') }}">{{ task.get('risk', 'low') }} risk</div></div>
           <pre>{{ task.get('draft', '') }}</pre>
           <div class="meta">{{ task.get('reason', '') }}</div><br>
-          <div class="actions">
-            <form method="post" action="/api/approve/{{ action_id }}?password={{ password }}"><button class="green">Mark Used / Done</button></form>
-            <form method="post" action="/api/skip/{{ action_id }}?password={{ password }}"><button class="danger">Remove</button></form>
-          </div>
+          <div class="actions"><form method="post" action="/api/approve/{{ action_id }}?password={{ password }}"><button class="green">Mark Used / Done</button></form><form method="post" action="/api/skip/{{ action_id }}?password={{ password }}"><button class="danger">Remove</button></form></div>
         </div>
       {% endfor %}
     {% else %}
-      <div class="card empty"><h2>No output yet.</h2><p class="hint">Paste a message or run Quick Quote to create the first useful card.</p></div>
+      <div class="card empty"><h2>No output yet.</h2><p class="hint">Autopilot will create cards automatically when scheduled routines run or email is connected.</p></div>
     {% endif %}
   </div>
 </body>
