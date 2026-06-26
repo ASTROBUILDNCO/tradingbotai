@@ -4,7 +4,7 @@ services:
     env: python
     plan: starter
     buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn dashboard.no_auth_main:app --host 0.0.0.0 --port $PORT
+    startCommand: uvicorn dashboard.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: DASHBOARD_PASSWORD
         sync: false
@@ -13,4 +13,6 @@ services:
       - key: TIMEZONE
         value: America/New_York
       - key: APPROVAL_REQUIRED
+        value: "true"
+      - key: AUTOPILOT_ENABLED
         value: "true"
