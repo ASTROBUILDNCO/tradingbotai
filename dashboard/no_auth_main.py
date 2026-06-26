@@ -48,6 +48,28 @@ async def skip_action(action_id: str):
     return orchestrator.skip_action(action_id)
 
 
+@app.post("/api/quick/paste")
+async def quick_paste(request: Request):
+    form = await request.form()
+    orchestrator.analyze_pasted_message(str(form.get("message", "")))
+    return RedirectResponse(url="/", status_code=303)
+
+
+@app.post("/api/quick/quote")
+async def quick_quote(request: Request):
+    form = await request.form()
+    orchestrator.build_quick_quote(
+        str(form.get("job_name", "Quick job")),
+        str(form.get("labor_hours", "")),
+        str(form.get("labor_rate", "")),
+        str(form.get("materials", "")),
+        str(form.get("travel", "")),
+        str(form.get("rental", "")),
+        str(form.get("margin", "")),
+    )
+    return RedirectResponse(url="/", status_code=303)
+
+
 @app.post("/api/run/{routine}")
 async def run_routine(routine: str):
     routine = routine.lower()
@@ -65,7 +87,7 @@ async def run_routine(routine: str):
         pass
     else:
         raise HTTPException(status_code=400, detail="Unknown routine")
-    return {"status": "triggered", "routine": routine, "pending_actions": len(orchestrator.approval_queue)}
+    return RedirectResponse(url="/", status_code=303)
 
 
 @app.get("/health")
