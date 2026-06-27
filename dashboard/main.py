@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import os
 from fastapi import FastAPI, Request, Depends, HTTPException, status
-from fastapi.responses import HTMLResponse, JSONResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
 from astro_agent.autopilot import autopilot_status, run_autopilot_once, start_autopilot
@@ -63,6 +63,12 @@ async def autopilot_tick(password: str = Depends(verify_password)):
     return RedirectResponse(url=f"/?password={password}", status_code=303)
 
 
+@app.post("/api/discord/test")
+async def discord_test(password: str = Depends(verify_password)):
+    orchestrator.send_discord_test()
+    return RedirectResponse(url=f"/?password={password}", status_code=303)
+
+
 @app.post("/api/approve/{action_id}")
 async def approve_action(action_id: str, password: str = Depends(verify_password)):
     orchestrator.approve_action(action_id)
@@ -102,6 +108,8 @@ async def run_routine(routine: str, password: str = Depends(verify_password)):
         orchestrator.check_email()
     elif routine == "draft_facebook_post":
         orchestrator.draft_facebook_post()
+    elif routine == "find_leads":
+        orchestrator.run_lead_finder()
     elif routine == "approval_queue":
         pass
     else:
