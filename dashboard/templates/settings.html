@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AstroBuildCo Setup</title>
+  <title>AstroBuildCo Jarvis Setup</title>
   <style>
     :root{--bg:#080710;--panel:#11101d;--panel2:#17162a;--gold:#f5b942;--purple:#7c3cff;--green:#25d366;--text:#f7f3e8;--muted:#a9a3ba;--line:rgba(255,255,255,.12)}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#080710,#11101d);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.wrap{max-width:980px;margin:0 auto;padding:16px}.hero{border:1px solid var(--line);background:linear-gradient(135deg,rgba(245,185,66,.15),rgba(124,60,255,.18));border-radius:24px;padding:20px}.kicker{color:var(--gold);font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:.75rem}h1{margin:.25rem 0;font-size:1.75rem}.sub{margin:0;color:var(--muted);line-height:1.4}.top{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}.top a{background:rgba(255,255,255,.07);border:1px solid var(--line);border-radius:14px;text-decoration:none;text-align:center;color:var(--text);padding:13px;font-weight:900}.card{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),var(--panel2));border-radius:20px;padding:16px;margin-top:15px}.saved{background:rgba(37,211,102,.13);border:1px solid rgba(37,211,102,.55);padding:.8rem;border-radius:12px;margin-bottom:1rem;font-weight:800}.hint{color:var(--muted);font-size:.9rem;line-height:1.35}.group{margin-top:20px}.group h2{font-size:1.05rem;color:var(--gold);margin:0 0 8px}.field{margin:12px 0}label{display:block;font-weight:900;margin-bottom:7px}input{width:100%;background:rgba(0,0,0,.28);border:1px solid var(--line);border-radius:12px;color:var(--text);padding:13px;font-size:1rem}input::placeholder{color:#77718a}button{margin-top:18px;width:100%;padding:1rem;background:linear-gradient(135deg,var(--gold),#ffe4a0);color:#12100b;border:0;border-radius:14px;font-size:1rem;font-weight:900}.mini{font-size:.82rem;color:var(--muted);margin-top:5px}.danger{color:#ffb0b0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:760px){.wrap{padding:12px}.grid,.top{grid-template-columns:1fr}h1{font-size:1.45rem}}
   </style>
@@ -11,9 +11,9 @@
 <body>
   <div class="wrap">
     <div class="hero">
-      <div class="kicker">AstroBuildCo Beast Agent v2</div>
-      <h1>Setup / API Settings</h1>
-      <p class="sub">Enter keys and email server settings here. Secrets are masked after saving. Blank fields keep the existing value.</p>
+      <div class="kicker">AstroBuildCo Jarvis v2</div>
+      <h1>Settings / Connectors</h1>
+      <p class="sub">Connect Discord, email, lead targets, and approval rules. Secrets are masked after saving. Blank fields keep the existing value.</p>
       <div class="top">
         <a href="/?password={{ password }}">Back to Command Center</a>
         <a href="/settings?password={{ password }}">Refresh Settings</a>
@@ -22,11 +22,23 @@
 
     <div class="card">
       {% if saved %}<div class="saved">Saved. Blank fields kept old values.</div>{% endif %}
-      <p class="hint"><b>Safe rule:</b> this dashboard drafts and queues work. Keep APPROVAL_REQUIRED set to true so nothing is treated as approved without you reviewing it.</p>
+      <p class="hint"><b>Safe rule:</b> keep APPROVAL_REQUIRED set to true. Jarvis can notify, draft, summarize, and queue work, but business actions stay approval-gated.</p>
       <form method="post" action="/settings/save?password={{ password }}">
         <div class="group">
-          <h2>AI Brain</h2>
-          <div class="field"><label>OPENAI_API_KEY</label><input name="OPENAI_API_KEY" placeholder="{% if masked['OPENAI_API_KEY'] %}Current: {{ masked['OPENAI_API_KEY'] }}{% else %}sk-...{% endif %}"><div class="mini">Needed later for stronger drafting and summaries.</div></div>
+          <h2>Jarvis Brain</h2>
+          <div class="field"><label>OPENAI_API_KEY</label><input name="OPENAI_API_KEY" placeholder="{% if masked['OPENAI_API_KEY'] %}Current: {{ masked['OPENAI_API_KEY'] }}{% else %}sk-...{% endif %}"><div class="mini">Needed later for stronger drafting, summaries, and quote analysis.</div></div>
+        </div>
+
+        <div class="group">
+          <h2>Discord Jarvis Voice</h2>
+          <div class="field"><label>DISCORD_WEBHOOK_URL</label><input name="DISCORD_WEBHOOK_URL" type="password" placeholder="{% if masked['DISCORD_WEBHOOK_URL'] %}Current: {{ masked['DISCORD_WEBHOOK_URL'] }}{% else %}Discord channel webhook URL{% endif %}"><div class="mini">This is how morning/midday/evening briefs reach your phone.</div></div>
+          <div class="field"><label>DASHBOARD_BASE_URL</label><input name="DASHBOARD_BASE_URL" placeholder="{% if masked['DASHBOARD_BASE_URL'] %}Current: {{ masked['DASHBOARD_BASE_URL'] }}{% else %}https://your-render-service.onrender.com{% endif %}"><div class="mini">Used inside Discord messages so you can jump back to the approval queue.</div></div>
+        </div>
+
+        <div class="group">
+          <h2>Lead Finder Targets</h2>
+          <div class="field"><label>LOCAL_LEAD_MARKET</label><input name="LOCAL_LEAD_MARKET" placeholder="{% if masked['LOCAL_LEAD_MARKET'] %}Current: {{ masked['LOCAL_LEAD_MARKET'] }}{% else %}Dayton, Troy, Wright-Patterson AFB, Miami Valley, Ohio{% endif %}"></div>
+          <div class="field"><label>LEAD_SEARCH_TERMS</label><input name="LEAD_SEARCH_TERMS" placeholder="{% if masked['LEAD_SEARCH_TERMS'] %}Current: {{ masked['LEAD_SEARCH_TERMS'] }}{% else %}low voltage, AV install, Cat6, wireless, tower, Tarana{% endif %}"></div>
         </div>
 
         <div class="group">
@@ -48,7 +60,7 @@
             <div class="field"><label>SMTP_USER</label><input name="SMTP_USER" placeholder="{% if masked['SMTP_USER'] %}Current: {{ masked['SMTP_USER'] }}{% else %}your business email{% endif %}"></div>
             <div class="field"><label>SMTP_PASSWORD</label><input name="SMTP_PASSWORD" type="password" placeholder="{% if masked['SMTP_PASSWORD'] %}Current: {{ masked['SMTP_PASSWORD'] }}{% else %}email password or app password{% endif %}"></div>
           </div>
-          <div class="mini danger">Sending hooks are not active yet. This is staged for future approved send workflow.</div>
+          <div class="mini danger">Sending hooks are still staged only. Approval queue first.</div>
         </div>
 
         <div class="group">
@@ -63,7 +75,7 @@
           <h2>Safety / Timezone</h2>
           <div class="grid">
             <div class="field"><label>APPROVAL_REQUIRED</label><input name="APPROVAL_REQUIRED" placeholder="{% if masked['APPROVAL_REQUIRED'] %}Current: {{ masked['APPROVAL_REQUIRED'] }}{% else %}true{% endif %}"></div>
-            <div class="field"><label>TIMEZONE</label><input name="TIMEZONE" placeholder="{% if masked['TIMEZONE'] %}Current: {{ masked['TIMEZONE'] }}{% else %}America/New_York{% endif %}"></div>
+            <div class="field"><label>TIMEZONE</label><input name="TIMEZONE" placeholder="{% if masked['TIMEZONE'] %}Current: {{ masked['TIMEZONE'] }}{% else %}America/Chicago{% endif %}"></div>
           </div>
         </div>
         <button type="submit">Save Settings</button>
