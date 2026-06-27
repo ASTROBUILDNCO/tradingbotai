@@ -9,6 +9,7 @@ from email.message import Message
 from typing import Dict, List, Optional
 
 from tools.config_store import load_setting
+from tools.discord_notify import dashboard_url, discord_configured, send_discord_message
 
 
 class Orchestrator:
@@ -30,6 +31,7 @@ class Orchestrator:
             ("No-setup tools", True),
             ("Inbound email", self._configured("IMAP_HOST", "IMAP_PORT", "IMAP_USER", "IMAP_PASSWORD")),
             ("Outbound email", self._configured("SMTP_HOST", "SMTP_PORT", "SMTP_USER", "SMTP_PASSWORD")),
+            ("Discord Jarvis voice", discord_configured()),
             ("Facebook page", self._configured("META_PAGE_ID", "META_PAGE_ACCESS_TOKEN")),
             ("Approval lock", (load_setting("APPROVAL_REQUIRED", "true") or "true").lower() == "true"),
         ]
@@ -43,7 +45,7 @@ class Orchestrator:
             "destination": "AstroBuildCo command center",
             "risk": "low",
             "reason": "Planning and visibility only.",
-            "draft": f"{focus}\n\nSystem status:\n{status}\n\nUse the no-setup tools first:\n1. Paste an email/RFQ and get a reply draft.\n2. Enter quick quote numbers and get pricing math.\n3. Generate a Facebook post.\n4. Review every approval card before using it.\n\nNothing sends, posts, deletes, or submits from this app.",
+            "draft": f"{focus}\n\nSystem status:\n{status}\n\nJarvis operating rules:\n1. Find and organize work aggressively.\n2. Draft replies, quote notes, lead lists, and posts.\n3. Put anything external into the approval queue.\n4. Never send, post, submit, spend, delete, or modify business records without Ashton approving it.\n\nNo-setup tools still work: paste an email/RFQ, run quick quote math, and review every approval card before using it.",
         }
 
     def _email_category(self, subject: str, body: str) -> str:
@@ -191,26 +193,92 @@ class Orchestrator:
             self._add({"type": "email_reply_draft", "description": f"{item['category']}: {item['subject'][:80]}", "destination": item["from"], "risk": "medium" if item["category"] != "RFQ / quote lead" else "high", "reason": "Review before replying. The agent does not send automatically.", "draft": f"From: {item['from']}\nSubject: {item['subject']}\nCategory: {item['category']}\n\nMessage preview:\n{item['body']}\n\nSuggested reply:\n{item['draft']}"})
 
     def _draft_quote(self) -> Dict:
-        return {"type": "quote_builder", "description": "Quote checklist", "destination": "quote review", "risk": "high", "reason": "Pricing and scope must be approved before submission.", "draft": "Use Quick Quote for immediate math. Then verify: exact site address, scope/SOW, deadline, materials provided, access, lift/rental, travel, and payment terms."}
+        return {
+            "type": "quote_builder",
+            "description": "Quote checklist",
+            "destination": "quote review",
+            "risk": "high",
+            "reason": "Pricing and scope must be approved before submission.",
+            "draft": "Use Quick Quote for immediate math. Then verify: exact site address, scope/SOW, deadline, materials provided, access, lift/rental, travel, and payment terms.\n\nJarvis quote focus:\n- Push small jobs under $10k when they fit AstroBuildCo.\n- Flag anything near Dayton first.\n- Favor low-voltage, AV, Cat6, wireless, tower-adjacent, camera, and service-call work.\n- Do not submit anything without Ashton approval.",
+        }
 
     def _draft_facebook(self, time_of_day: str = "daily") -> Dict:
         return {"type": "facebook_draft", "description": f"Draft {time_of_day} AstroBuildCo Facebook post", "destination": "copy/paste Facebook", "risk": "medium", "reason": "Post must be reviewed before publishing.", "draft": "Post option A:\nAstroBuildCo is built on real field execution: tower work, wireless installs, AV support, site troubleshooting, and getting infrastructure online when it matters. Clear scope. Safe work. Clean finish.\n\nPost option B:\nEvery job starts with the same question: what does the site actually need to work reliably? AstroBuildCo focuses on practical solutions, clean installs, and dependable follow-through.\n\nEngagement question:\nWhat matters more on a job site: speed, documentation, or clean workmanship?\n\n#AstroBuildCo #Telecom #TowerWork #Wireless #AVInstall #SmallBusiness"}
 
+    def _lead_radar(self) -> Dict:
+        terms = load_setting("LEAD_SEARCH_TERMS", "")
+        if not terms:
+            terms = "low voltage, AV install, sound system, projector, Cat6, network wiring, wireless install, tower, Tarana, camera install, small construction, site service"
+        local = load_setting("LOCAL_LEAD_MARKET", "Dayton, Troy, Wright-Patterson AFB, Miami Valley, Ohio")
+        return {
+            "type": "lead_radar",
+            "description": "Jarvis lead radar targets",
+            "destination": "lead finder",
+            "risk": "medium",
+            "reason": "This prepares lead-search targets. Review each lead before contacting anyone or bidding.",
+            "draft": f"Lead search mission:\nFind small, winnable jobs Ashton can execute or coordinate with high leverage.\n\nPriority market:\n{local}\n\nHigh-fit keywords:\n{terms}\n\nBest-fit work:\n- RFQs under $10k where AstroBuildCo can make at least $3k gross profit.\n- Low-voltage / Cat6 / AV / projector / sound-system installs.\n- Wireless, WISP, tower-adjacent, Tarana, troubleshooting, site repair, and closeout work.\n- Local government, churches, schools, small businesses, property managers, and telecom subs.\n\nJarvis action:\n1. Search lead sources.\n2. Rank by fit, deadline, distance, risk, and expected profit.\n3. Draft outreach or quote questions.\n4. Put everything in the approval queue before any contact is made.",
+        }
+
+    def run_lead_finder(self) -> None:
+        self._add(self._lead_radar())
+        self._send_discord_brief("Lead Finder Triggered", "I queued the current lead-search targets and next money moves.")
+
+    def _queue_preview(self, limit: int = 5) -> List[str]:
+        recent = list(self.approval_queue.values())[-limit:]
+        return [f"- {item.get('description', 'Output card')} ({item.get('risk', 'low')} risk)" for item in recent]
+
+    def _send_discord_brief(self, title: str, focus: str) -> Dict[str, str]:
+        pending = len(self.approval_queue)
+        preview = "\n".join(self._queue_preview()) or "- No cards queued yet"
+        link = dashboard_url()
+        link_line = f"\nDashboard: {link}" if link else "\nDashboard link: set DASHBOARD_BASE_URL in Settings or Render env."
+        message = (
+            f"**AstroBuildCo Jarvis — {title}**\n\n"
+            f"{focus}\n\n"
+            f"Pending approval cards: **{pending}**\n\n"
+            f"Top cards:\n{preview}\n\n"
+            f"Operating rule: I can search, summarize, draft, rank, and remind. I do **not** send, post, submit, delete, or spend without Ashton approving it."
+            f"{link_line}"
+        )
+        return send_discord_message(message)
+
+    def send_discord_test(self) -> Dict[str, str]:
+        result = self._send_discord_brief("Discord Test", "Jarvis voice check. Discord notifications are connected if you are reading this there.")
+        if not discord_configured():
+            self._add({
+                "type": "optional_setup",
+                "description": "Connect Discord Jarvis voice",
+                "destination": "API Settings",
+                "risk": "low",
+                "reason": "Discord needs a webhook URL before Jarvis can message you.",
+                "draft": "Add DISCORD_WEBHOOK_URL in Settings or Render Environment Variables. Then press Send Discord Test again.\n\nFor best dashboard links, also set DASHBOARD_BASE_URL to your Render app URL.",
+            })
+        return result
+
     def run_morning_routine(self) -> None:
         self.last_run = "morning"
-        self._add(self._briefing("Morning simple start", "Good morning Ashton. No complicated setup required: paste any RFQ/email, run quick quote math, and generate one Facebook post."))
+        if self._configured("IMAP_HOST", "IMAP_PORT", "IMAP_USER", "IMAP_PASSWORD"):
+            self.check_email()
+        self._add(self._briefing("Morning Jarvis brief", "Good morning Ashton. First move: clear the approval cards that can create money today. I checked the available setup, queued quote/post/lead actions, and kept all external actions locked behind approval."))
+        self._add(self._lead_radar())
         self._add(self._draft_quote())
         self._add(self._draft_facebook("morning"))
+        self._send_discord_brief("Morning Brief", "Morning routine completed. Review email/RFQ cards first, then leads, then quote math, then the Facebook post draft.")
 
     def run_midday_routine(self) -> None:
         self.last_run = "midday"
-        self._add(self._briefing("Midday simple check", "Midday check: paste any new messages, review quote math, and clear approval cards."))
+        if self._configured("IMAP_HOST", "IMAP_PORT", "IMAP_USER", "IMAP_PASSWORD"):
+            self.check_email()
+        self._add(self._briefing("Midday Jarvis check-in", "Midday check: keep momentum. Review any new email replies, push the best lead, and clear one quote or outreach card."))
+        self._add(self._lead_radar())
         self._add(self._draft_facebook("midday"))
+        self._send_discord_brief("Midday Check-In", "Midday routine completed. I queued current priorities and any email cards available.")
 
     def run_evening_routine(self) -> None:
         self.last_run = "evening"
         self._add(self._briefing("Evening closeout", "Evening recap: capture what happened, what needs follow-up, and what should be first tomorrow."))
-        self._add({"type": "follow_up_plan", "description": "Tomorrow follow-up list", "destination": "dashboard", "risk": "low", "reason": "Planning only.", "draft": "Tomorrow follow-up template:\n\n- RFQs awaiting response\n- Customers needing scope clarification\n- Quotes to price\n- Emails that need a professional reply\n- Facebook post/engagement check\n- Any SAM/PIEE deadlines\n\nUse this list before starting new tasks."})
+        self._add({"type": "follow_up_plan", "description": "Tomorrow follow-up list", "destination": "dashboard", "risk": "low", "reason": "Planning only.", "draft": "Tomorrow follow-up template:\n\n- RFQs awaiting response\n- Customers needing scope clarification\n- Quotes to price\n- Emails that need a professional reply\n- Facebook post/engagement check\n- Any SAM/PIEE deadlines\n- Best local lead to chase first\n\nUse this list before starting new tasks."})
+        self._send_discord_brief("Evening Closeout", "Evening routine completed. The dashboard now has tomorrow follow-up targets.")
 
     def draft_facebook_post(self) -> None:
         self._add(self._draft_facebook("custom"))
