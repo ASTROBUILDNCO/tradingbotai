@@ -24,6 +24,10 @@ SECRET_KEYS = [
     "SMTP_PORT",
     "SMTP_USER",
     "SMTP_PASSWORD",
+    "DISCORD_WEBHOOK_URL",
+    "DASHBOARD_BASE_URL",
+    "LEAD_SEARCH_TERMS",
+    "LOCAL_LEAD_MARKET",
     "META_PAGE_ID",
     "META_PAGE_ACCESS_TOKEN",
     "APPROVAL_REQUIRED",
@@ -95,7 +99,7 @@ def load_all_masked() -> Dict[str, str]:
         val = os.getenv(key) or stored.get(key, "")
         if not val:
             out[key] = ""
-        elif "PASSWORD" in key or "TOKEN" in key or "KEY" in key:
+        elif "PASSWORD" in key or "TOKEN" in key or "KEY" in key or "WEBHOOK" in key:
             out[key] = val[:4] + "..." + val[-4:] if len(val) > 8 else "saved"
         else:
             out[key] = val
