@@ -71,9 +71,9 @@ def init_seed_interest_db() -> None:
 
 def catalog() -> List[Dict[str, str]]:
     return [
-        {"slug":"tropicana-cookies-auto","name":"Tropicana Cookies Auto","type":"Auto / limited current stock","inventory":"2 packs available now","badge":"2 live","status":"Limited","visual":"trop","profile":"Flagship citrus-cookie direction: loud orange peel, cookie funk, purple lean, and premium bag appeal.","future":"Core inspiration lane for Astro Cookies Auto work."},
-        {"slug":"gorilla-cookies-auto","name":"Gorilla Cookies Auto","type":"Auto / current stock","inventory":"10 packs available now","badge":"10 live","status":"Available","visual":"gorilla","profile":"Heavy cookie-gas lane with big name recognition and broad first-menu appeal.","future":"Use as the practical high-demand auto while the house line develops."},
-        {"slug":"orange-sherbet-auto","name":"Orange Sherbet Auto","type":"Auto / current stock","inventory":"7 packs available now","badge":"7 live","status":"Available","visual":"sherb","profile":"Sweet orange cream branding, softer dessert profile, and a clean citrus companion to Tropicana Cookies.","future":"Strong content strain for citrus comparison diaries."},
+        {"slug":"tropicana-cookies-auto","name":"Tropicana Cookies Auto","type":"Auto / limited current stock","inventory":"2 seeds available now","badge":"2 seeds","status":"Limited","visual":"trop","profile":"Flagship citrus-cookie direction: loud orange peel, cookie funk, purple lean, and premium bag appeal.","future":"Core inspiration lane for Astro Cookies Auto work."},
+        {"slug":"gorilla-cookies-auto","name":"Gorilla Cookies Auto","type":"Auto / current stock","inventory":"10 seeds available now","badge":"10 seeds","status":"Available","visual":"gorilla","profile":"Heavy cookie-gas lane with big name recognition and broad first-menu appeal.","future":"Use as the practical high-demand auto while the house line develops."},
+        {"slug":"orange-sherbet-auto","name":"Orange Sherbet Auto","type":"Auto / current stock","inventory":"7 seeds available now","badge":"7 seeds","status":"Available","visual":"sherb","profile":"Sweet orange cream branding, softer dessert profile, and a clean citrus companion to Tropicana Cookies.","future":"Strong content strain for citrus comparison diaries."},
         {"slug":"astro-cookies-auto-s3","name":"Astro Cookies Auto S3","type":"Future in-house line","inventory":"Coming after selection work","badge":"S3 target","status":"Future Drop","visual":"astro","profile":"The first house-signature concept: cookie/citrus auto genetics documented through transparent selection notes.","future":"Make this the brand signature after enough stability, documentation, and proof."},
         {"slug":"og-kush-pheno-hunt","name":"OG Kush Pheno Hunt","type":"Future photo line","inventory":"Coming after pheno hunt","badge":"hunt","status":"In Development","visual":"og","profile":"Classic gas, pine, fuel, and old-school structure. Built only after you select a keeper pheno worth attaching the brand to.","future":"Future premium photo line once a winner is hunted and documented."},
     ]
@@ -81,7 +81,7 @@ def catalog() -> List[Dict[str, str]]:
 
 def grow_diary() -> List[Dict[str, str]]:
     return [
-        {"title":"Current Inventory Drop","body":"Gorilla Cookies Auto 10, Orange Sherbet Auto 7, Tropicana Cookies Auto 2. First menu should stay honest and limited."},
+        {"title":"Current Inventory Drop","body":"Gorilla Cookies Auto 10 seeds, Orange Sherbet Auto 7 seeds, Tropicana Cookies Auto 2 seeds. First menu should stay honest and limited."},
         {"title":"Astro Cookies Auto S3 Goal","body":"Document the parent selection, keeper traits, germ tests, structure, terp direction, and why the line deserves the Astro name."},
         {"title":"OG Kush Keeper Hunt","body":"Do not rush the OG line. Build demand with photos, notes, and a real keeper story before release."},
     ]
