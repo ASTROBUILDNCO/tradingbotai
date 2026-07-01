@@ -2,18 +2,20 @@ from __future__ import annotations
 
 import os
 from fastapi import FastAPI, Request, Depends, HTTPException, status
-from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.responses import HTMLResponse, RedirectResponse, Response
 from fastapi.templating import Jinja2Templates
 
 from astro_agent.autopilot import autopilot_status, run_autopilot_once, start_autopilot
 from astro_agent.orchestrator import Orchestrator
 from tools.config_store import SECRET_KEYS, save_setting, load_all_masked
 from tools.workflow_store import add_opportunity, archive_opportunity, dashboard_snapshot, update_opportunity
+from tools.seed_interest_store import catalog, lead_counts, leads_csv, list_drop_list, list_inquiries, save_drop_list, save_inquiry
 
 app = FastAPI(title="AstroBuild&Co. Beast Agent")
 templates = Jinja2Templates(directory=os.path.join(os.path.dirname(__file__), "templates"))
 orchestrator = Orchestrator()
 DASHBOARD_PASSWORD = os.getenv("DASHBOARD_PASSWORD", "change_me_now")
+SEED_BRAND_NAME = os.getenv("SEED_BRAND_NAME", "Astro Genetics")
 
 
 @app.on_event("startup")
@@ -69,6 +71,56 @@ def _save_quick_quote_to_tracker(form) -> None:
             f"Margin target: {margin_pct:.1f}%"
         ),
     })
+
+
+@app.get("/seeds", response_class=HTMLResponse)
+async def seed_brand(request: Request):
+    return templates.TemplateResponse(
+        "seed_brand.html",
+        {
+            "request": request,
+            "brand_name": SEED_BRAND_NAME,
+            "catalog": catalog(),
+            "saved": request.query_params.get("saved") in {"1", "waitlist", "inquiry"},
+        },
+    )
+
+
+@app.post("/seeds/waitlist")
+async def seed_waitlist(request: Request):
+    form = await request.form()
+    save_drop_list(form)
+    return RedirectResponse(url="/seeds?saved=waitlist", status_code=303)
+
+
+@app.post("/seeds/inquiry")
+async def seed_inquiry(request: Request):
+    form = await request.form()
+    save_inquiry(form)
+    return RedirectResponse(url="/seeds?saved=inquiry", status_code=303)
+
+
+@app.get("/seeds/admin", response_class=HTMLResponse)
+async def seed_admin(request: Request, password: str = Depends(verify_password)):
+    return templates.TemplateResponse(
+        "seed_admin.html",
+        {
+            "request": request,
+            "password": password,
+            "counts": lead_counts(),
+            "drop_list": list_drop_list(),
+            "inquiries": list_inquiries(),
+        },
+    )
+
+
+@app.get("/seeds/admin/export")
+async def seed_admin_export(password: str = Depends(verify_password)):
+    return Response(
+        content=leads_csv(),
+        media_type="text/csv",
+        headers={"Content-Disposition": "attachment; filename=seed-interest-leads.csv"},
+    )
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -224,4 +276,5 @@ async def run_routine(routine: str, password: str = Depends(verify_password)):
 @app.get("/health")
 async def health():
     snap = dashboard_snapshot()
-    return {"ok": True, "service": "AstroBuild&Co. Beast Agent", "autopilot": autopilot_status(), "workflow_active": snap["summary"]["active"]}
+    seed_counts = lead_counts()
+    return {"ok": True, "service": "AstroBuild&Co. Beast Agent", "autopilot": autopilot_status(), "workflow_active": snap["summary"]["active"], "seed_interest_total": seed_counts["total"]}
