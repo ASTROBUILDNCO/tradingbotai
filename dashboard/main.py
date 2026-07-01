@@ -16,7 +16,7 @@ templates = Jinja2Templates(directory=os.path.join(os.path.dirname(__file__), "t
 orchestrator = Orchestrator()
 DASHBOARD_PASSWORD = os.getenv("DASHBOARD_PASSWORD", "change_me_now")
 SEED_BRAND_NAME = os.getenv("SEED_BRAND_NAME", "Astro Genetics")
-SOLANA_PAYMENT_WALLET = os.getenv("SOLANA_PAYMENT_WALLET", "Solana wallet will be shown after manual order review")
+SOLANA_PAYMENT_WALLET = os.getenv("SOLANA_PAYMENT_WALLET", "C7iQe8hdyGXGVE62NxJWQXPim4sfcNNHPUugiX57qUxv")
 
 
 @app.on_event("startup")
