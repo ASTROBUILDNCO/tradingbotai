@@ -5,33 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ brand_name }} Genetics</title>
   <style>
-    :root{--bg:#050505;--ink:#f7f1df;--muted:#a9a193;--gold:#f4c363;--orange:#ff7a18;--purple:#8e44ff;--green:#4ade80;--sol:#14f195;--sol2:#9945ff;--line:rgba(255,255,255,.14);--card:#111111;--card2:#191919}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 20% 0%,rgba(255,122,24,.24),transparent 30%),radial-gradient(circle at 80% 10%,rgba(153,69,255,.24),transparent 28%),linear-gradient(180deg,#050505,#090909 55%,#050505);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.wrap{max-width:1220px;margin:0 auto;padding:18px}.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;position:sticky;top:0;z-index:5;background:rgba(5,5,5,.72);backdrop-filter:blur(16px)}.brand{font-weight:1000;letter-spacing:.08em;text-transform:uppercase}.nav a{color:var(--ink);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:9px 12px;background:rgba(255,255,255,.05);font-weight:850}.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:stretch;padding:22px 0}.panel,.card,.form,.diary{border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035));border-radius:28px;padding:20px;box-shadow:0 25px 75px rgba(0,0,0,.42)}.kicker{color:var(--gold);font-weight:950;letter-spacing:.14em;text-transform:uppercase;font-size:.75rem}.soltag{display:inline-block;color:#050505;background:linear-gradient(135deg,var(--sol),var(--sol2));border-radius:999px;padding:8px 12px;font-weight:1000;margin-bottom:10px}.title{font-size:clamp(2.2rem,7vw,5.9rem);line-height:.9;margin:12px 0;font-weight:1000;letter-spacing:-.07em}.sub{font-size:1.08rem;color:var(--muted);line-height:1.48;max-width:760px}.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{display:inline-block;border:0;border-radius:16px;padding:14px 17px;background:linear-gradient(135deg,var(--gold),#fff0b0);color:#130d05;font-weight:1000;text-decoration:none;cursor:pointer}.btn.sol{background:linear-gradient(135deg,var(--sol),var(--sol2));color:#050505}.btn.dark{border:1px solid var(--line);background:rgba(255,255,255,.07);color:var(--ink)}.hero-shot{min-height:420px;border-radius:28px;position:relative;overflow:hidden;border:1px solid var(--line);background:linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.72)),url('https://unsplash.com/photos/aJgQFnkAmAo/download?force=true&w=1400');background-size:cover;background-position:center}.hero-shot:before{content:"";position:absolute;inset:18px;border:1px solid rgba(255,255,255,.18);border-radius:22px}.hero-shot .stamp{position:absolute;left:24px;bottom:24px;right:24px;font-weight:1000;font-size:2rem;letter-spacing:-.04em;text-shadow:0 6px 24px #000}.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:10px 0 18px}.stat{border:1px solid var(--line);border-radius:18px;padding:13px;background:rgba(255,255,255,.045)}.stat b{display:block;color:var(--gold);font-size:.73rem;text-transform:uppercase}.stat span{font-size:1.1rem;font-weight:950}.stat.sol{background:linear-gradient(135deg,rgba(20,241,149,.12),rgba(153,69,255,.12));border-color:rgba(20,241,149,.38)}.section-head{display:flex;justify-content:space-between;gap:12px;align-items:end;margin:32px 0 14px}.section-head h2{font-size:2rem;margin:0;letter-spacing:-.04em}.hint{color:var(--muted);line-height:1.42}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{padding:0;overflow:hidden}.visual{height:250px;position:relative;background-size:cover;background-position:center;isolation:isolate}.visual:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.54));z-index:-1}.visual:after{content:"STOCK PHOTO • REPLACE WITH REAL SHOT";position:absolute;right:12px;top:12px;border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:7px 10px;font-size:.64rem;font-weight:1000;color:rgba(255,255,255,.88);background:rgba(0,0,0,.38);backdrop-filter:blur(10px)}.visual.trop{background-image:linear-gradient(135deg,rgba(255,122,24,.35),rgba(142,68,255,.20)),url('https://unsplash.com/photos/HOQ5pZdmFQI/download?force=true&w=900')}.visual.gorilla{background-image:linear-gradient(135deg,rgba(30,20,12,.25),rgba(74,222,128,.18)),url('https://unsplash.com/photos/dgb9j25UGe4/download?force=true&w=900')}.visual.sherb{background-image:linear-gradient(135deg,rgba(255,122,24,.42),rgba(244,195,99,.22)),url('https://unsplash.com/photos/aJgQFnkAmAo/download?force=true&w=900')}.visual.astro{background-image:linear-gradient(135deg,rgba(153,69,255,.35),rgba(20,241,149,.14)),url('https://unsplash.com/photos/HOQ5pZdmFQI/download?force=true&w=900')}.visual.og{background-image:linear-gradient(135deg,rgba(4,20,7,.28),rgba(244,195,99,.12)),url('https://unsplash.com/photos/dgb9j25UGe4/download?force=true&w=900')}.body{padding:18px}.body h3{margin:0;font-size:1.35rem;letter-spacing:-.03em}.pill{display:inline-block;margin:8px 6px 0 0;border:1px solid var(--line);border-radius:999px;padding:6px 9px;color:#ffe6a4;background:rgba(244,195,99,.09);font-weight:900;font-size:.78rem}.pill.sol{color:#bfffe5;background:rgba(20,241,149,.11);border-color:rgba(20,241,149,.3)}.price{font-size:1.45rem;font-weight:1000;margin-top:14px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.diaries{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.diary b{display:block;color:var(--gold);margin-bottom:8px}label{display:block;font-weight:950;margin:11px 0 6px}input,select,textarea{width:100%;border:1px solid var(--line);background:rgba(0,0,0,.32);color:var(--ink);border-radius:14px;padding:13px;font-size:1rem}textarea{min-height:118px}.mini{display:grid;grid-template-columns:1fr 1fr;gap:10px}.check{display:flex;gap:10px;align-items:flex-start;color:var(--muted);line-height:1.35;margin:10px 0}.check input{width:auto;margin-top:3px}.success{border:1px solid rgba(74,222,128,.45);background:rgba(74,222,128,.14);color:#b8ffd0;border-radius:16px;padding:13px;margin:10px 0;font-weight:950}.warn{border:1px solid rgba(244,195,99,.38);background:rgba(244,195,99,.10);border-radius:16px;padding:13px;color:#ffe2a0}.footer{margin:28px 0;color:var(--muted);font-size:.92rem}@media(max-width:980px){.hero,.grid,.cards,.diaries,.strip,.mini{grid-template-columns:1fr}.nav{position:static}.hero-shot{min-height:280px}.section-head{display:block}}
+    :root{--ink:#f7f1df;--muted:#aaa295;--gold:#f4c363;--sol:#14f195;--sol2:#9945ff;--line:rgba(255,255,255,.14)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 20% 0%,rgba(255,122,24,.24),transparent 30%),radial-gradient(circle at 80% 10%,rgba(153,69,255,.24),transparent 28%),linear-gradient(180deg,#050505,#090909 55%,#050505);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.wrap{max-width:1220px;margin:0 auto;padding:18px}.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;position:sticky;top:0;z-index:5;background:rgba(5,5,5,.72);backdrop-filter:blur(16px)}.brand{font-weight:1000;letter-spacing:.08em;text-transform:uppercase}.nav a{color:var(--ink);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:9px 12px;background:rgba(255,255,255,.05);font-weight:850}.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:stretch;padding:22px 0}.panel,.card,.form,.diary,.summary{border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035));border-radius:28px;padding:20px;box-shadow:0 25px 75px rgba(0,0,0,.42)}.kicker{color:var(--gold);font-weight:950;letter-spacing:.14em;text-transform:uppercase;font-size:.75rem}.soltag{display:inline-block;color:#050505;background:linear-gradient(135deg,var(--sol),var(--sol2));border-radius:999px;padding:8px 12px;font-weight:1000;margin-bottom:10px}.title{font-size:clamp(2.2rem,7vw,5.9rem);line-height:.9;margin:12px 0;font-weight:1000;letter-spacing:-.07em}.sub,.hint{color:var(--muted);line-height:1.45}.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{display:inline-block;border:0;border-radius:16px;padding:14px 17px;background:linear-gradient(135deg,var(--gold),#fff0b0);color:#130d05;font-weight:1000;text-decoration:none;cursor:pointer}.btn.sol{background:linear-gradient(135deg,var(--sol),var(--sol2));color:#050505}.btn.dark{border:1px solid var(--line);background:rgba(255,255,255,.07);color:var(--ink)}.hero-shot{min-height:420px;border-radius:28px;position:relative;overflow:hidden;border:1px solid var(--line);background:linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.72)),url('https://unsplash.com/photos/aJgQFnkAmAo/download?force=true&w=1400');background-size:cover;background-position:center}.hero-shot:before{content:"";position:absolute;inset:18px;border:1px solid rgba(255,255,255,.18);border-radius:22px}.hero-shot .stamp{position:absolute;left:24px;bottom:24px;right:24px;font-weight:1000;font-size:2rem;letter-spacing:-.04em;text-shadow:0 6px 24px #000}.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:10px 0 18px}.stat{border:1px solid var(--line);border-radius:18px;padding:13px;background:rgba(255,255,255,.045)}.stat b,.sum b{display:block;color:var(--gold);font-size:.73rem;text-transform:uppercase}.stat span,.sum span{font-size:1.1rem;font-weight:950}.stat.sol{background:linear-gradient(135deg,rgba(20,241,149,.12),rgba(153,69,255,.12));border-color:rgba(20,241,149,.38)}.section-head{display:flex;justify-content:space-between;gap:12px;align-items:end;margin:32px 0 14px}.section-head h2{font-size:2rem;margin:0;letter-spacing:-.04em}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{padding:0;overflow:hidden}.visual{height:250px;background-size:cover;background-position:center}.visual.trop{background-image:linear-gradient(135deg,rgba(255,122,24,.35),rgba(142,68,255,.20)),url('https://unsplash.com/photos/HOQ5pZdmFQI/download?force=true&w=900')}.visual.gorilla{background-image:linear-gradient(135deg,rgba(30,20,12,.25),rgba(74,222,128,.18)),url('https://unsplash.com/photos/dgb9j25UGe4/download?force=true&w=900')}.visual.sherb{background-image:linear-gradient(135deg,rgba(255,122,24,.42),rgba(244,195,99,.22)),url('https://unsplash.com/photos/aJgQFnkAmAo/download?force=true&w=900')}.visual.astro{background-image:linear-gradient(135deg,rgba(153,69,255,.35),rgba(20,241,149,.14)),url('https://unsplash.com/photos/HOQ5pZdmFQI/download?force=true&w=900')}.visual.og{background-image:linear-gradient(135deg,rgba(4,20,7,.28),rgba(244,195,99,.12)),url('https://unsplash.com/photos/dgb9j25UGe4/download?force=true&w=900')}.body{padding:18px}.body h3{margin:0;font-size:1.35rem;letter-spacing:-.03em}.pill{display:inline-block;margin:8px 6px 0 0;border:1px solid var(--line);border-radius:999px;padding:6px 9px;color:#ffe6a4;background:rgba(244,195,99,.09);font-weight:900;font-size:.78rem}.pill.sol{color:#bfffe5;background:rgba(20,241,149,.11);border-color:rgba(20,241,149,.3)}.price{font-size:1.45rem;font-weight:1000;margin-top:14px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.diaries{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.diary b{display:block;color:var(--gold);margin-bottom:8px}label{display:block;font-weight:950;margin:11px 0 6px}input,select,textarea{width:100%;border:1px solid var(--line);background:rgba(0,0,0,.32);color:var(--ink);border-radius:14px;padding:13px;font-size:1rem}textarea{min-height:90px}.mini{display:grid;grid-template-columns:1fr 1fr;gap:10px}.check{display:flex;gap:10px;align-items:flex-start;color:var(--muted);line-height:1.35;margin:10px 0}.check input{width:auto;margin-top:3px}.summary{background:linear-gradient(135deg,rgba(20,241,149,.12),rgba(153,69,255,.10));margin:14px 0}.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.sum{border:1px solid var(--line);border-radius:16px;padding:12px;background:rgba(0,0,0,.22)}.success{border:1px solid rgba(74,222,128,.45);background:rgba(74,222,128,.14);color:#b8ffd0;border-radius:16px;padding:13px;margin:10px 0;font-weight:950}.warn{border:1px solid rgba(244,195,99,.38);background:rgba(244,195,99,.10);border-radius:16px;padding:13px;color:#ffe2a0}.footer{margin:28px 0;color:var(--muted);font-size:.92rem}@media(max-width:980px){.hero,.grid,.cards,.diaries,.strip,.mini,.summary-grid{grid-template-columns:1fr}.nav{position:static}.hero-shot{min-height:280px}.section-head{display:block}}
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="nav"><div class="brand">{{ brand_name }}</div><div><a href="#menu">Menu</a><a href="#reserve">Reserve</a><a href="#diary">Diary</a></div></div>
-    {% if saved %}<div class="success">Request saved. You are in the queue. No payment was taken on this page.</div>{% endif %}
+    <div class="nav"><div class="brand">{{ brand_name }}</div><div><a href="#menu">Menu</a><a href="#reserve">Order</a><a href="#diary">Diary</a></div></div>
+    {% if saved %}<div class="success">Order request saved. Keep your order number. Payment is verified manually before shipment.</div>{% endif %}
 
     <section class="hero">
       <div class="panel">
-        <div class="soltag">$10 per seed • Preferred: SOL / USDC on Solana</div>
-        <div class="kicker">Small-batch Midwest genetics</div>
+        <div class="soltag">$10 per seed • SOL / USDC on Solana</div>
+        <div class="kicker">Astro Genetics</div>
         <h1 class="title">Citrus. Cookies. Gas.</h1>
-        <p class="sub">A premium seed brand built around limited auto drops, transparent grow diaries, documented pheno hunts, and fast manual crypto invoices. Current focus: Tropicana Cookies Auto, Gorilla Cookies Auto, Orange Sherbet Auto, future Astro Cookies Auto S3, and an OG Kush keeper hunt.</p>
-        <div class="cta"><a class="btn sol" href="#reserve">Reserve with Solana</a><a class="btn dark" href="#diary">Follow the grow diary</a></div>
+        <p class="sub">Simple limited seed ordering: choose the line, seed count, shipping option, and submit. The site generates an order number and total. You pay on Solana, then the order is verified and shipped.</p>
+        <div class="cta"><a class="btn sol" href="#reserve">Start Order</a><a class="btn dark" href="#diary">Follow the grow diary</a></div>
       </div>
-      <div class="hero-shot"><div class="stamp">ASTRO COOKIES<br>DEVELOPMENT FILE</div></div>
+      <div class="hero-shot"><div class="stamp">ASTRO GENETICS<br>LIMITED DROP</div></div>
     </section>
 
     <div class="strip">
       <div class="stat"><b>Price</b><span>$10 / seed</span></div>
       <div class="stat"><b>Gorilla Cookies Auto</b><span>10 seeds</span></div>
       <div class="stat"><b>Orange / Tropicana</b><span>7 / 2 seeds</span></div>
-      <div class="stat sol"><b>Payment Lane</b><span>SOL / USDC-SOL</span></div>
+      <div class="stat sol"><b>Payment</b><span>SOL / USDC-SOL</span></div>
     </div>
 
-    <div class="section-head" id="menu"><div><div class="kicker">Featured Menu</div><h2>Current + future drops</h2></div><div class="hint">Simple pricing: $10 per seed. Final Solana invoice is manually confirmed after availability and eligibility review.</div></div>
+    <div class="section-head" id="menu"><div><div class="kicker">Menu</div><h2>Current + future drops</h2></div><div class="hint">$10 per seed. Shipping is added in the order form.</div></div>
     <div class="cards">
       {% for item in catalog %}
       <article class="card">
@@ -49,50 +49,65 @@
 
     <div class="grid" id="reserve" style="margin-top:28px">
       <section class="form">
-        <div class="kicker">Checkout-style request</div>
-        <h2>Reserve seeds / request Solana invoice</h2>
-        <p class="hint">Pricing is $10 per seed. Example: 1 seed = $10, 3 seeds = $30, 10 seeds = $100. USDC-on-Solana matches the USD subtotal; SOL amount is quoted manually at the current rate.</p>
-        <form method="post" action="/seeds/inquiry">
+        <div class="kicker">Order</div>
+        <h2>Build order + shipping</h2>
+        <p class="hint">USDC on Solana is easiest because the amount equals the USD total. SOL is quoted at the current rate.</p>
+        <form method="post" action="/seeds/inquiry" id="orderForm">
+          <div class="mini"><div><label>Choose line</label><select name="catalog_interest" id="product"><option data-stock="10">Gorilla Cookies Auto</option><option data-stock="7">Orange Sherbet Auto</option><option data-stock="2">Tropicana Cookies Auto</option><option data-stock="0">Astro Cookies Auto S3 future drop</option><option data-stock="0">OG Kush pheno hunt future drop</option></select></div><div><label>Seed count</label><input id="seedCount" type="number" min="1" value="1" inputmode="numeric"></div></div>
+          <label>Shipping</label><select id="shipping"><option value="5">USPS Standard - $5</option><option value="9">USPS Priority - $9</option><option value="0">Hold / local arrangement - $0</option></select>
+          <div class="summary"><div class="kicker">Order summary</div><div class="summary-grid"><div class="sum"><b>Order #</b><span id="orderNo">AG-</span></div><div class="sum"><b>Seeds</b><span id="seedTotal">$10</span></div><div class="sum"><b>Shipping</b><span id="shipTotal">$5</span></div><div class="sum"><b>Total</b><span id="grandTotal">$15</span></div></div><p class="hint" id="payNote">Send 15 USDC on Solana after reviewing the order number.</p></div>
           <div class="mini"><div><label>Name</label><input name="name" required></div><div><label>Email</label><input name="email" type="email" required></div></div>
-          <div class="mini"><div><label>Phone</label><input name="phone"></div><div><label>State</label><input name="state" placeholder="OH"></div></div>
-          <label>Choose line</label><select name="catalog_interest"><option>Gorilla Cookies Auto</option><option>Orange Sherbet Auto</option><option>Tropicana Cookies Auto</option><option>Astro Cookies Auto S3 future drop</option><option>OG Kush pheno hunt future drop</option></select>
-          <label>Preferred payment path</label><select name="buyer_type"><option>USDC on Solana invoice after approval</option><option>SOL invoice after approval</option><option>Card payment when approved processor is live</option><option>BTC only if requested</option><option>Wholesale / larger request</option></select>
-          <label>Request details</label><textarea name="message" placeholder="Example: 3 Gorilla Cookies Auto seeds = $30. USDC on Solana preferred. Add questions, state, and notes here."></textarea>
-          <label class="check"><input type="checkbox" name="age_confirmed" required> I confirm I am legally allowed to submit this request in my jurisdiction.</label>
-          <label class="check"><input type="checkbox" name="legal_confirmed" required> I understand eligibility, destination, product availability, and payment path must be reviewed before any transaction.</label>
-          <label class="check"><input type="checkbox" name="no_payment_sent" required> I understand this is not automatic checkout and no payment should be sent until manually approved.</label>
-          <button class="btn sol" type="submit">Submit Solana Invoice Request</button>
+          <div class="mini"><div><label>Phone</label><input name="phone"></div><div><label>State</label><input name="state" id="shipState" placeholder="OH" required></div></div>
+          <label>Shipping address</label><input id="address1" placeholder="Street address" required>
+          <div class="mini"><div><input id="city" placeholder="City" required></div><div><input id="zip" placeholder="ZIP" required></div></div>
+          <label>Preferred payment</label><select name="buyer_type" id="payPath"><option>USDC on Solana</option><option>SOL on Solana</option><option>Card later when approved</option></select>
+          <label>Notes</label><textarea id="notes" placeholder="Questions or delivery notes"></textarea>
+          <textarea name="message" id="message" style="display:none"></textarea>
+          <label class="check"><input type="checkbox" name="age_confirmed" required> I confirm I am legally allowed to submit this order request in my jurisdiction.</label>
+          <label class="check"><input type="checkbox" name="legal_confirmed" required> I understand eligibility, destination, availability, and payment are reviewed before shipment.</label>
+          <label class="check"><input type="checkbox" name="no_payment_sent" required> I will include the order number with payment and understand payment is verified manually.</label>
+          <button class="btn sol" type="submit">Generate Order Request</button>
         </form>
       </section>
 
       <section class="form">
-        <div class="kicker">Drop list</div>
-        <h2>Follow future releases</h2>
-        <p class="hint">Use this for Astro Cookies Auto S3, OG Kush hunt updates, grow diary posts, and limited stock alerts.</p>
-        <form method="post" action="/seeds/waitlist">
-          <div class="mini"><div><label>Name</label><input name="name" required></div><div><label>Email</label><input name="email" type="email" required></div></div>
-          <div class="mini"><div><label>Phone</label><input name="phone"></div><div><label>State</label><input name="state" placeholder="OH"></div></div>
-          <label>What do you want updates on?</label><textarea name="interest" placeholder="Astro Cookies Auto S3, OG Kush hunt, Tropicana Cookies Auto, new photos, grow diary, etc."></textarea>
-          <label class="check"><input type="checkbox" name="age_confirmed" required> I confirm I am legally allowed to join this list.</label>
-          <label class="check"><input type="checkbox" name="legal_confirmed" required> I understand I am responsible for following all laws in my jurisdiction.</label>
-          <button class="btn" type="submit">Join Drop List</button>
-        </form>
+        <div class="kicker">Payment instructions</div>
+        <h2>Solana wallet</h2>
+        <p class="hint">Use Solana network only. USDC on Solana is preferred. Wrong-network payments may be unrecoverable.</p>
+        <div class="summary"><div class="kicker">Wallet</div><p style="overflow-wrap:anywhere;font-weight:1000">{{ solana_wallet }}</p></div>
+        <div class="warn">Put your order number in the memo/reference if your wallet allows it. Also paste the transaction hash into your follow-up message or email if needed.</div>
+        <p class="hint">Set the wallet in Render as <b>SOLANA_PAYMENT_WALLET</b>. Do not hard-code a personal trading wallet into the repo.</p>
       </section>
     </div>
 
     <div class="section-head" id="diary"><div><div class="kicker">Grow diary / proof</div><h2>Build trust like a real breeder</h2></div><div class="hint">Stock photos make it look good today. Your real photos and selection notes will make it believable.</div></div>
-    <div class="diaries">
-      <div class="diary"><b>Current inventory drop</b><p>Gorilla Cookies Auto 10 seeds, Orange Sherbet Auto 7 seeds, Tropicana Cookies Auto 2 seeds. Keep the first menu honest and limited.</p></div>
-      <div class="diary"><b>Astro Cookies Auto S3 goal</b><p>Document parent selection, keeper traits, germ tests, structure, terp direction, and why the line deserves the Astro name.</p></div>
-      <div class="diary"><b>OG Kush keeper hunt</b><p>Do not rush the OG line. Build demand with photos, notes, and a real keeper story before release.</p></div>
-    </div>
-
-    <section class="panel" style="margin-top:28px">
-      <div class="kicker">Compliance + payments</div>
-      <h2>Solana first. Card later when approved.</h2>
-      <div class="warn">SOL / USDC-on-Solana invoice requests are manual. USDC-on-Solana is easiest because the order is priced in USD at $10 per seed. SOL invoices are quoted at the current rate when manually approved.</div>
-      <p class="footer">Customers are responsible for their local laws. Stock photos are placeholders from free stock sources; replace with your own verified product/grow photos as soon as possible.</p>
-    </section>
+    <div class="diaries"><div class="diary"><b>Current inventory drop</b><p>Gorilla Cookies Auto 10 seeds, Orange Sherbet Auto 7 seeds, Tropicana Cookies Auto 2 seeds.</p></div><div class="diary"><b>Astro Cookies Auto S3 goal</b><p>Document parent selection, keeper traits, germ tests, structure, terp direction, and why the line deserves the Astro name.</p></div><div class="diary"><b>OG Kush keeper hunt</b><p>Do not rush the OG line. Build demand with photos, notes, and a real keeper story before release.</p></div></div>
+    <p class="footer">Customers are responsible for their local laws. Stock photos are placeholders from free stock sources.</p>
   </div>
+  <script>
+    const pricePerSeed = 10;
+    const orderNo = 'AG-' + Date.now().toString(36).toUpperCase().slice(-6) + '-' + Math.random().toString(36).slice(2,5).toUpperCase();
+    document.getElementById('orderNo').textContent = orderNo;
+    function updateOrder(){
+      const product = document.getElementById('product');
+      const selected = product.options[product.selectedIndex];
+      const stock = Number(selected.dataset.stock || 0);
+      const count = document.getElementById('seedCount');
+      count.max = stock > 0 ? stock : 99;
+      let qty = Math.max(1, Number(count.value || 1));
+      if(stock > 0 && qty > stock){ qty = stock; count.value = stock; }
+      const ship = Number(document.getElementById('shipping').value || 0);
+      const seeds = qty * pricePerSeed;
+      const total = seeds + ship;
+      document.getElementById('seedTotal').textContent = '$' + seeds.toFixed(2);
+      document.getElementById('shipTotal').textContent = '$' + ship.toFixed(2);
+      document.getElementById('grandTotal').textContent = '$' + total.toFixed(2);
+      document.getElementById('payNote').textContent = 'USDC on Solana amount: ' + total.toFixed(2) + ' USDC. SOL amount quoted at current rate.';
+      document.getElementById('message').value = 'Order Number: ' + orderNo + '\nProduct: ' + product.value + '\nSeeds: ' + qty + '\nPrice: $10 per seed\nSeed subtotal: $' + seeds.toFixed(2) + '\nShipping: $' + ship.toFixed(2) + '\nTotal due: $' + total.toFixed(2) + '\nPayment preference: ' + document.getElementById('payPath').value + '\nShip to: ' + document.getElementById('address1').value + ', ' + document.getElementById('city').value + ', ' + document.getElementById('shipState').value + ' ' + document.getElementById('zip').value + '\nNotes: ' + document.getElementById('notes').value;
+    }
+    ['product','seedCount','shipping','payPath','address1','city','shipState','zip','notes'].forEach(id=>document.getElementById(id).addEventListener('input', updateOrder));
+    document.getElementById('orderForm').addEventListener('submit', updateOrder);
+    updateOrder();
+  </script>
 </body>
 </html>
