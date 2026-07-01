@@ -8,6 +8,7 @@ from fastapi.templating import Jinja2Templates
 from astro_agent.autopilot import autopilot_status, run_autopilot_once, start_autopilot
 from astro_agent.orchestrator import Orchestrator
 from tools.config_store import SECRET_KEYS, save_setting, load_all_masked
+from tools.workflow_store import add_opportunity, archive_opportunity, dashboard_snapshot, update_opportunity
 
 app = FastAPI(title="AstroBuild&Co. Beast Agent")
 templates = Jinja2Templates(directory=os.path.join(os.path.dirname(__file__), "templates"))
@@ -27,9 +28,61 @@ def verify_password(request: Request) -> str:
     return password
 
 
+def _money(value: object, default: float = 0.0) -> float:
+    try:
+        return float(str(value or "").replace("$", "").replace(",", "").strip() or default)
+    except Exception:
+        return default
+
+
+def _save_quick_quote_to_tracker(form) -> None:
+    job_name = str(form.get("job_name", "")).strip()
+    if not job_name:
+        return
+
+    hours = _money(form.get("labor_hours"))
+    rate = _money(form.get("labor_rate"), 75.0)
+    materials = _money(form.get("materials"))
+    travel = _money(form.get("travel"))
+    rental = _money(form.get("rental"))
+    margin_pct = _money(form.get("margin"), 20.0)
+    cost = (hours * rate) + materials + travel + rental
+    price = cost / (1 - (margin_pct / 100)) if margin_pct < 95 else cost * 1.25
+    profit = price - cost
+
+    add_opportunity({
+        "title": job_name,
+        "source": "Quick Quote",
+        "status": "quote_draft",
+        "price": price,
+        "cost": cost,
+        "profit": profit,
+        "probability": 45,
+        "fit_score": 70,
+        "next_action": "Verify scope, access, materials, wage/rental risk, due date, and submission path before sending.",
+        "notes": (
+            f"Quick quote math saved from dashboard.\n"
+            f"Labor: {hours:.1f} hrs x ${rate:.2f}/hr\n"
+            f"Materials: ${materials:,.2f}\n"
+            f"Travel: ${travel:,.2f}\n"
+            f"Rental/tools: ${rental:,.2f}\n"
+            f"Margin target: {margin_pct:.1f}%"
+        ),
+    })
+
+
 @app.get("/", response_class=HTMLResponse)
 async def dashboard(request: Request, password: str = Depends(verify_password)):
-    return templates.TemplateResponse("dashboard.html", {"request": request, "tasks": orchestrator.approval_queue, "password": password, "autopilot": autopilot_status()})
+    return templates.TemplateResponse(
+        "dashboard.html",
+        {
+            "request": request,
+            "tasks": orchestrator.approval_queue,
+            "password": password,
+            "autopilot": autopilot_status(),
+            "workflow": dashboard_snapshot(),
+        },
+    )
 
 
 @app.get("/settings", response_class=HTMLResponse)
@@ -50,6 +103,56 @@ async def save_settings(request: Request, password: str = Depends(verify_passwor
 @app.get("/api/queue")
 async def get_queue(password: str = Depends(verify_password)):
     return orchestrator.approval_queue
+
+
+@app.get("/api/workflow")
+async def get_workflow(password: str = Depends(verify_password)):
+    return dashboard_snapshot()
+
+
+@app.post("/api/opportunities/add")
+async def add_opportunity_route(request: Request, password: str = Depends(verify_password)):
+    form = await request.form()
+    add_opportunity({
+        "title": form.get("title"),
+        "source": form.get("source"),
+        "agency": form.get("agency"),
+        "contact": form.get("contact"),
+        "due_at": form.get("due_at"),
+        "status": form.get("status") or "lead",
+        "price": form.get("price"),
+        "cost": form.get("cost"),
+        "profit": form.get("profit"),
+        "probability": form.get("probability"),
+        "fit_score": form.get("fit_score"),
+        "next_action": form.get("next_action"),
+        "next_follow_up": form.get("next_follow_up"),
+        "notes": form.get("notes"),
+    })
+    return RedirectResponse(url=f"/?password={password}", status_code=303)
+
+
+@app.post("/api/opportunities/{opportunity_id}/update")
+async def update_opportunity_route(opportunity_id: str, request: Request, password: str = Depends(verify_password)):
+    form = await request.form()
+    update_opportunity(opportunity_id, {
+        "status": form.get("status"),
+        "next_action": form.get("next_action"),
+        "next_follow_up": form.get("next_follow_up"),
+        "price": form.get("price"),
+        "cost": form.get("cost"),
+        "profit": form.get("profit"),
+        "probability": form.get("probability"),
+        "fit_score": form.get("fit_score"),
+        "notes": form.get("notes"),
+    })
+    return RedirectResponse(url=f"/?password={password}", status_code=303)
+
+
+@app.post("/api/opportunities/{opportunity_id}/archive")
+async def archive_opportunity_route(opportunity_id: str, password: str = Depends(verify_password)):
+    archive_opportunity(opportunity_id)
+    return RedirectResponse(url=f"/?password={password}", status_code=303)
 
 
 @app.get("/api/autopilot/status")
@@ -92,6 +195,7 @@ async def quick_paste(request: Request, password: str = Depends(verify_password)
 async def quick_quote(request: Request, password: str = Depends(verify_password)):
     form = await request.form()
     orchestrator.build_quick_quote(str(form.get("job_name", "Quick job")), str(form.get("labor_hours", "")), str(form.get("labor_rate", "")), str(form.get("materials", "")), str(form.get("travel", "")), str(form.get("rental", "")), str(form.get("margin", "")))
+    _save_quick_quote_to_tracker(form)
     return RedirectResponse(url=f"/?password={password}", status_code=303)
 
 
@@ -119,4 +223,5 @@ async def run_routine(routine: str, password: str = Depends(verify_password)):
 
 @app.get("/health")
 async def health():
-    return {"ok": True, "service": "AstroBuild&Co. Beast Agent", "autopilot": autopilot_status()}
+    snap = dashboard_snapshot()
+    return {"ok": True, "service": "AstroBuild&Co. Beast Agent", "autopilot": autopilot_status(), "workflow_active": snap["summary"]["active"]}

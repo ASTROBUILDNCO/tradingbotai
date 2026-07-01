@@ -3,48 +3,142 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AstroBuildCo Jarvis</title>
+  <title>AstroBuildCo Mission Control</title>
   <style>
-    :root{--bg:#080710;--panel:#11101d;--panel2:#17162a;--gold:#f5b942;--purple:#7c3cff;--green:#25d366;--red:#ff4d4d;--text:#f7f3e8;--muted:#a9a3ba;--line:rgba(255,255,255,.12)}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at top left,rgba(124,60,255,.35),transparent 28%),linear-gradient(180deg,#080710,#0d0b16 50%,#080710);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.wrap{max-width:1180px;margin:0 auto;padding:14px}.hero,.card,.tool{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),var(--panel2));border-radius:22px;padding:16px;box-shadow:0 12px 45px rgba(0,0,0,.28)}.hero{background:linear-gradient(135deg,rgba(245,185,66,.16),rgba(124,60,255,.2));margin-bottom:14px}.kicker{color:var(--gold);font-weight:900;letter-spacing:.1em;text-transform:uppercase;font-size:.72rem}.title{font-size:1.85rem;margin:.2rem 0;font-weight:900}.sub{color:var(--muted);margin:0;line-height:1.35}.top{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}.top a{display:block;text-decoration:none;text-align:center;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.06);padding:12px;border-radius:14px;font-weight:900}.tools{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-bottom:14px}.tool h2{margin:0 0 7px;font-size:1.15rem}.hint{color:var(--muted);font-size:.9rem;line-height:1.35;margin:0 0 10px}textarea,input{width:100%;border:1px solid var(--line);background:rgba(0,0,0,.28);color:var(--text);border-radius:13px;padding:12px;font-size:1rem}textarea{min-height:150px;resize:vertical}label{display:block;font-weight:900;margin:10px 0 6px}.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.button-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}.button-grid form{margin:0}button{width:100%;border:0;border-radius:13px;padding:13px;font-weight:900;font-size:1rem;cursor:pointer}.gold{background:linear-gradient(135deg,var(--gold),#ffe4a0);color:#151008}.blue{background:linear-gradient(135deg,var(--purple),#b196ff);color:white}.green{background:linear-gradient(135deg,#11a84f,var(--green));color:#031009}.danger{background:linear-gradient(135deg,#b81f1f,var(--red));color:white}.queue-head{display:flex;justify-content:space-between;align-items:center;margin:18px 0 10px}.pill{border:1px solid var(--line);border-radius:999px;padding:7px 11px;color:var(--muted);font-weight:800;font-size:.82rem}.card{margin-bottom:13px}.card-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.card strong{font-size:1.05rem}.meta{color:var(--muted);font-size:.86rem;margin-top:5px}.risk{font-size:.75rem;font-weight:900;padding:6px 9px;border-radius:999px;border:1px solid var(--line);text-transform:uppercase}.risk.high{background:rgba(255,77,77,.16);color:#ffb0b0}.risk.medium{background:rgba(245,185,66,.16);color:#ffdc8a}.risk.low{background:rgba(37,211,102,.14);color:#a7ffc8}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:rgba(0,0,0,.22);border:1px solid var(--line);padding:13px;border-radius:14px;color:#f7f3e8;line-height:1.35;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88rem}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.empty{text-align:center;padding:24px}.quick-note{border:1px solid var(--line);background:rgba(37,211,102,.08);border-radius:16px;padding:12px;margin-bottom:14px;color:#a7ffc8;font-weight:800}.statusgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}.statusbox{border:1px solid var(--line);background:rgba(0,0,0,.2);border-radius:14px;padding:10px}.statusbox b{display:block;color:var(--gold);font-size:.78rem;text-transform:uppercase}.statusbox span{color:var(--muted);font-size:.85rem}.mission{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}.mission div{border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:16px;padding:12px}.mission b{color:var(--gold);display:block;margin-bottom:4px}@media(max-width:900px){.tools,.mini-grid,.button-grid,.top,.statusgrid,.mission{grid-template-columns:1fr}.title{font-size:1.45rem}.card-top{display:block}.risk{display:inline-block;margin-top:8px}}
+    :root{--bg:#080710;--panel:#11101d;--panel2:#17162a;--gold:#f5b942;--purple:#7c3cff;--green:#25d366;--red:#ff4d4d;--text:#f7f3e8;--muted:#a9a3ba;--line:rgba(255,255,255,.12)}
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(circle at top left,rgba(124,60,255,.35),transparent 28%),linear-gradient(180deg,#080710,#0d0b16 50%,#080710);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+    .wrap{max-width:1220px;margin:0 auto;padding:14px}
+    .hero,.card,.tool,.move,.metric,.opp{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),var(--panel2));border-radius:22px;padding:16px;box-shadow:0 12px 45px rgba(0,0,0,.28)}
+    .hero{background:linear-gradient(135deg,rgba(245,185,66,.16),rgba(124,60,255,.2));margin-bottom:14px}
+    .kicker{color:var(--gold);font-weight:900;letter-spacing:.1em;text-transform:uppercase;font-size:.72rem}
+    .title{font-size:1.85rem;margin:.2rem 0;font-weight:900}
+    .sub,.hint,.meta{color:var(--muted);line-height:1.35}
+    .sub{margin:0}
+    .top{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+    .top a{display:block;text-decoration:none;text-align:center;color:var(--text);border:1px solid var(--line);background:rgba(255,255,255,.06);padding:12px;border-radius:14px;font-weight:900}
+    .metrics{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin:14px 0}
+    .metric b{display:block;color:var(--gold);font-size:.75rem;text-transform:uppercase}
+    .metric span{font-size:1.15rem;font-weight:900}
+    .moves{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+    .move b{display:inline-block;color:#151008;background:linear-gradient(135deg,var(--gold),#ffe4a0);border-radius:999px;padding:5px 9px;font-size:.76rem;text-transform:uppercase}
+    .move h3{margin:10px 0 6px}
+    .sections{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+    .tools{display:grid;grid-template-columns:1.1fr .9fr;gap:14px;margin-bottom:14px}
+    h2{margin:0 0 7px;font-size:1.15rem}
+    textarea,input,select{width:100%;border:1px solid var(--line);background:rgba(0,0,0,.28);color:var(--text);border-radius:13px;padding:12px;font-size:1rem}
+    textarea{min-height:120px;resize:vertical}
+    label{display:block;font-weight:900;margin:10px 0 6px}
+    .mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .tri-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+    .button-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
+    .button-grid form{margin:0}
+    button{width:100%;border:0;border-radius:13px;padding:13px;font-weight:900;font-size:1rem;cursor:pointer}
+    .gold{background:linear-gradient(135deg,var(--gold),#ffe4a0);color:#151008}
+    .blue{background:linear-gradient(135deg,var(--purple),#b196ff);color:white}
+    .green{background:linear-gradient(135deg,#11a84f,var(--green));color:#031009}
+    .danger{background:linear-gradient(135deg,#b81f1f,var(--red));color:white}
+    .board-head,.queue-head,.opp-head{display:flex;justify-content:space-between;align-items:center;margin:18px 0 10px;gap:10px}
+    .pill{border:1px solid var(--line);border-radius:999px;padding:7px 11px;color:var(--muted);font-weight:800;font-size:.82rem;white-space:nowrap}
+    .opp{margin-bottom:13px}
+    .opp-head{margin:0 0 8px}
+    .opp-title{font-weight:950;font-size:1.08rem}
+    .status{font-size:.75rem;font-weight:900;padding:6px 9px;border-radius:999px;border:1px solid var(--line);text-transform:uppercase;color:#ffdc8a;background:rgba(245,185,66,.12)}
+    .numbers{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:10px 0}
+    .num{border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:14px;padding:10px}
+    .num b{display:block;color:var(--gold);font-size:.75rem;text-transform:uppercase}
+    pre{white-space:pre-wrap;overflow-wrap:anywhere;background:rgba(0,0,0,.22);border:1px solid var(--line);padding:13px;border-radius:14px;color:#f7f3e8;line-height:1.35;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88rem}
+    .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .empty{text-align:center;padding:24px}
+    .quick-note{border:1px solid var(--line);background:rgba(37,211,102,.08);border-radius:16px;padding:12px;margin-bottom:14px;color:#a7ffc8;font-weight:800}
+    .statusgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:14px}
+    .statusbox{border:1px solid var(--line);background:rgba(0,0,0,.2);border-radius:14px;padding:10px}
+    .statusbox b{display:block;color:var(--gold);font-size:.78rem;text-transform:uppercase}
+    .statusbox span{color:var(--muted);font-size:.85rem}
+    @media(max-width:980px){.sections,.tools,.metrics,.moves,.mini-grid,.tri-grid,.button-grid,.top,.statusgrid,.numbers{grid-template-columns:1fr}.title{font-size:1.45rem}.opp-head,.board-head,.queue-head{display:block}.pill{display:inline-block;margin-top:8px}}
   </style>
 </head>
 <body>
+  {% set summary = workflow.get('summary', {}) %}
   <div class="wrap">
     <div class="hero">
-      <div class="kicker">AstroBuildCo Jarvis v2</div>
-      <div class="title">Agent Command Center</div>
-      <p class="sub">Jarvis drafts, ranks, reminds, scans email when connected, queues leads, and sends Discord briefs. Anything that leaves the system still waits for Ashton approval.</p>
+      <div class="kicker">AstroBuildCo Mission Control v3</div>
+      <div class="title">Today first. Money, deadlines, follow-ups.</div>
+      <p class="sub">This is no longer just buttons. Track every RFQ, quote, lead, submitted bid, follow-up, price, cost, profit, and next move from one screen.</p>
       <div class="statusgrid">
         <div class="statusbox"><b>Autopilot</b><span>{{ autopilot.get('enabled','unknown') }}</span></div>
         <div class="statusbox"><b>Email Watch</b><span>{{ autopilot.get('email_ready','false') }}</span></div>
         <div class="statusbox"><b>Last Tick</b><span>{{ autopilot.get('last_tick','never') }}</span></div>
         <div class="statusbox"><b>Last Scan</b><span>{{ autopilot.get('last_email_scan','never') }}</span></div>
       </div>
-      <div class="mission">
-        <div><b>Money Moves</b><span class="hint">Find small winnable work, RFQs, follow-ups, and quote opportunities.</span></div>
-        <div><b>Approval Lock</b><span class="hint">No sending, posting, submitting, deleting, or spending without you.</span></div>
-        <div><b>Discord Voice</b><span class="hint">Morning/midday/evening briefs can hit your Discord like Jarvis.</span></div>
-      </div>
       <div class="top">
-        <a href="/?password={{ password }}">Command Center</a>
+        <a href="/?password={{ password }}">Mission Control</a>
         <a href="/settings?password={{ password }}">Settings / Connectors</a>
       </div>
     </div>
 
-    <div class="quick-note">Jarvis mode: use Discord for daily messages, this dashboard for approvals, and the paste/quote tools for immediate execution.</div>
-
-    <div class="button-grid">
-      <form method="post" action="/api/run/morning?password={{ password }}"><button class="gold">Morning Jarvis Brief</button></form>
-      <form method="post" action="/api/run/midday?password={{ password }}"><button class="blue">Midday Check-In</button></form>
-      <form method="post" action="/api/run/evening?password={{ password }}"><button class="blue">Evening Closeout</button></form>
-      <form method="post" action="/api/discord/test?password={{ password }}"><button class="green">Send Discord Test</button></form>
-      <form method="post" action="/api/autopilot/tick?password={{ password }}"><button class="green">Run Autopilot Scan</button></form>
-      <form method="post" action="/api/run/find_leads?password={{ password }}"><button class="gold">Find Leads</button></form>
-      <form method="post" action="/api/run/check_email?password={{ password }}"><button class="blue">Check Email</button></form>
-      <form method="post" action="/api/run/draft_facebook_post?password={{ password }}"><button class="blue">Draft Facebook Post</button></form>
+    <div class="metrics">
+      <div class="metric"><b>Active</b><span>{{ summary.get('active', 0) }}</span></div>
+      <div class="metric"><b>Due Soon</b><span>{{ summary.get('due_soon', 0) }}</span></div>
+      <div class="metric"><b>Follow-Ups</b><span>{{ summary.get('followups_due', 0) }}</span></div>
+      <div class="metric"><b>Submitted</b><span>{{ summary.get('submitted', 0) }}</span></div>
+      <div class="metric"><b>Open Profit</b><span>{{ summary.get('open_profit', '$0') }}</span></div>
+      <div class="metric"><b>Expected</b><span>{{ summary.get('expected_pipeline', '$0') }}</span></div>
     </div>
 
-    <div class="tools">
+    <div class="board-head"><h2>What to do first</h2><div class="pill">auto-ranked from deadlines + follow-ups</div></div>
+    <div class="moves">
+      {% for move in workflow.get('today_moves', []) %}
+        <div class="move">
+          <b>{{ move.get('label', 'Move') }}</b>
+          <h3>{{ move.get('title', '') }}</h3>
+          <div class="hint">{{ move.get('detail', '') }}</div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="quick-note">Approval lock is still active: the app can organize, draft, calculate, and remind. It does not submit, send, post, spend, or delete for you.</div>
+
+    <div class="button-grid">
+      <form method="post" action="/api/run/morning?password={{ password }}"><button class="gold">Morning Money Brief</button></form>
+      <form method="post" action="/api/run/midday?password={{ password }}"><button class="blue">Midday Check-In</button></form>
+      <form method="post" action="/api/run/evening?password={{ password }}"><button class="blue">Evening Closeout</button></form>
+      <form method="post" action="/api/autopilot/tick?password={{ password }}"><button class="green">Run Autopilot Scan</button></form>
+      <form method="post" action="/api/run/find_leads?password={{ password }}"><button class="gold">Queue Lead Targets</button></form>
+      <form method="post" action="/api/run/check_email?password={{ password }}"><button class="blue">Check Email</button></form>
+      <form method="post" action="/api/run/draft_facebook_post?password={{ password }}"><button class="blue">Draft Facebook Post</button></form>
+      <form method="post" action="/api/discord/test?password={{ password }}"><button class="green">Discord Test</button></form>
+    </div>
+
+    <div class="sections">
+      <div class="tool">
+        <h2>Add Opportunity / Follow-Up</h2>
+        <p class="hint">Put every SAM RFQ, local lead, submitted quote, customer reply, or “waiting on them” item here. This is the part that makes the dashboard useful.</p>
+        <form method="post" action="/api/opportunities/add?password={{ password }}">
+          <label>Opportunity name</label><input name="title" placeholder="Kittyhawk chapel AV / SAM RFQ / local Cat6 job">
+          <div class="mini-grid">
+            <div><label>Source</label><input name="source" placeholder="SAM.gov, email, referral"></div>
+            <div><label>Agency / customer</label><input name="agency" placeholder="WPAFB / church / property manager"></div>
+            <div><label>Due date</label><input name="due_at" placeholder="2026-07-03 11:00"></div>
+            <div><label>Follow-up date</label><input name="next_follow_up" placeholder="2026-07-02"></div>
+            <div><label>Status</label><select name="status"><option value="lead">Lead</option><option value="reviewing">Reviewing</option><option value="quote_draft">Quote Draft</option><option value="submitted">Submitted</option><option value="waiting">Waiting</option><option value="won">Won</option><option value="lost">Lost</option></select></div>
+            <div><label>Contact</label><input name="contact" placeholder="Name / email / phone"></div>
+          </div>
+          <div class="tri-grid">
+            <div><label>Bid price</label><input name="price" placeholder="8750"></div>
+            <div><label>Out-of-pocket</label><input name="cost" placeholder="1500"></div>
+            <div><label>Profit</label><input name="profit" placeholder="7250"></div>
+          </div>
+          <div class="mini-grid">
+            <div><label>Win chance %</label><input name="probability" placeholder="45"></div>
+            <div><label>Fit score %</label><input name="fit_score" placeholder="80"></div>
+          </div>
+          <label>Next action</label><input name="next_action" placeholder="Send clean follow-up / verify SOW / price lift / submit quote">
+          <label>Notes</label><textarea name="notes" placeholder="Scope, risk, submission method, questions, out-of-pocket risk, why this matters..."></textarea>
+          <button class="gold" type="submit">Save To Tracker</button>
+        </form>
+      </div>
+
       <div class="tool">
         <h2>Paste Email / RFQ</h2>
         <p class="hint">Drop a customer email, RFQ text, SAM note, or scope here. Jarvis will classify it, draft a reply, and list what must be verified before committing.</p>
@@ -53,31 +147,115 @@
           <button class="gold" type="submit">Draft Reply / Next Steps</button>
         </form>
       </div>
+    </div>
+
+    <div class="tools">
       <div class="tool">
-        <h2>Fast Quote Math</h2>
-        <p class="hint">Use this to turn rough job inputs into a quote card with cost, sell price, and profit.</p>
+        <h2>Fast Quote Math + Save</h2>
+        <p class="hint">This now creates a quote card and also saves the job into the opportunity tracker as a quote draft.</p>
         <form method="post" action="/api/quick/quote?password={{ password }}">
           <label>Job name</label><input name="job_name" placeholder="RFQ / site / service call">
           <div class="mini-grid">
-            <div><label>Labor hours</label><input name="labor_hours" placeholder="24"></div><div><label>Labor rate</label><input name="labor_rate" placeholder="75"></div><div><label>Materials</label><input name="materials" placeholder="1000"></div><div><label>Travel</label><input name="travel" placeholder="250"></div><div><label>Rental/tools</label><input name="rental" placeholder="0"></div><div><label>Margin %</label><input name="margin" placeholder="20"></div>
+            <div><label>Labor hours</label><input name="labor_hours" placeholder="24"></div>
+            <div><label>Labor rate</label><input name="labor_rate" placeholder="75"></div>
+            <div><label>Materials</label><input name="materials" placeholder="1000"></div>
+            <div><label>Travel</label><input name="travel" placeholder="250"></div>
+            <div><label>Rental/tools</label><input name="rental" placeholder="0"></div>
+            <div><label>Margin %</label><input name="margin" placeholder="20"></div>
           </div>
-          <button class="green" type="submit">Build Quote Card</button>
+          <button class="green" type="submit">Build Quote + Save</button>
         </form>
       </div>
+
+      <div class="tool">
+        <h2>Bid Rules</h2>
+        <p class="hint">Use this board like a foreman: no hidden leads, no forgotten follow-ups, no quote without a deadline, no price without cost/profit, no submission without required docs.</p>
+        <pre>Best statuses:
+lead = found but not qualified
+reviewing = reading SOW/PWS
+quote_draft = price being built
+submitted = quote sent/submitted
+waiting = submitted and waiting on buyer
+won/lost = outcome known
+
+Best next actions:
+- follow up on quote status
+- verify materials provided
+- confirm access / lift / ladder
+- finish quote docs
+- kill it if risk is dumb</pre>
+      </div>
     </div>
+
+    <div class="board-head"><h2>Opportunity / Quote Board</h2><div class="pill">{{ workflow.get('opportunities', [])|length }} active</div></div>
+    {% if workflow.get('opportunities', []) %}
+      {% for opp in workflow.get('opportunities', []) %}
+        <div class="opp">
+          <div class="opp-head">
+            <div>
+              <div class="opp-title">{{ opp.get('title', 'Untitled') }}</div>
+              <div class="meta">{{ opp.get('source', '') }} • {{ opp.get('agency', '') }} • Due: {{ opp.get('due_at', 'not set') }} • Follow-up: {{ opp.get('next_follow_up', 'not set') }}</div>
+            </div>
+            <div class="status">{{ opp.get('status', 'lead') }}</div>
+          </div>
+          <div class="numbers">
+            <div class="num"><b>Bid</b>{{ opp.get('price_display', '$0') }}</div>
+            <div class="num"><b>Cost</b>{{ opp.get('cost_display', '$0') }}</div>
+            <div class="num"><b>Profit</b>{{ opp.get('profit_display', '$0') }}</div>
+            <div class="num"><b>Odds/Fit</b>{{ opp.get('probability', 0) }}% / {{ opp.get('fit_score', 0) }}%</div>
+          </div>
+          <div class="hint"><b>Next:</b> {{ opp.get('next_action', '') }}</div>
+          {% if opp.get('notes', '') %}<pre>{{ opp.get('notes', '') }}</pre>{% endif %}
+
+          <form method="post" action="/api/opportunities/{{ opp.get('id') }}/update?password={{ password }}">
+            <div class="mini-grid">
+              <div>
+                <label>Status</label>
+                <select name="status">
+                  {% for opt in ['lead','reviewing','pricing','quote_draft','submitted','waiting','awaiting_response','won','lost'] %}
+                    <option value="{{ opt }}" {% if opp.get('status') == opt %}selected{% endif %}>{{ opt.replace('_', ' ')|title }}</option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div><label>Next follow-up</label><input name="next_follow_up" value="{{ opp.get('next_follow_up', '') }}"></div>
+            </div>
+            <div class="tri-grid">
+              <div><label>Bid price</label><input name="price" value="{{ opp.get('price', 0) }}"></div>
+              <div><label>Cost</label><input name="cost" value="{{ opp.get('cost', 0) }}"></div>
+              <div><label>Profit</label><input name="profit" value="{{ opp.get('profit', 0) }}"></div>
+            </div>
+            <div class="mini-grid">
+              <div><label>Win chance %</label><input name="probability" value="{{ opp.get('probability', 50) }}"></div>
+              <div><label>Fit score %</label><input name="fit_score" value="{{ opp.get('fit_score', 50) }}"></div>
+            </div>
+            <label>Next action</label><input name="next_action" value="{{ opp.get('next_action', '') }}">
+            <label>Notes</label><textarea name="notes">{{ opp.get('notes', '') }}</textarea>
+            <button class="green" type="submit">Update Opportunity</button>
+          </form>
+          <form method="post" action="/api/opportunities/{{ opp.get('id') }}/archive?password={{ password }}" style="margin-top:10px">
+            <button class="danger" type="submit">Archive / Hide</button>
+          </form>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="card empty"><h2>No opportunities tracked yet.</h2><p class="hint">Add Kittyhawk, your next SAM RFQ, or any customer follow-up above. Once something is saved, this dashboard starts acting like a real money board.</p></div>
+    {% endif %}
 
     <div class="queue-head"><h2>Approval Queue / Jarvis Output</h2><div class="pill">{{ tasks|length }} pending</div></div>
     {% if tasks %}
       {% for action_id, task in tasks.items() %}
         <div class="card">
-          <div class="card-top"><div><strong>{{ task.get('description', 'Output Card') }}</strong><div class="meta">{{ task.get('type', 'unknown') }} • {{ task.get('destination', '') }} • {{ task.get('created_at', '') }}</div></div><div class="risk {{ task.get('risk', 'low') }}">{{ task.get('risk', 'low') }} risk</div></div>
+          <div class="opp-head"><div><strong>{{ task.get('description', 'Output Card') }}</strong><div class="meta">{{ task.get('type', 'unknown') }} • {{ task.get('destination', '') }} • {{ task.get('created_at', '') }}</div></div><div class="status">{{ task.get('risk', 'low') }} risk</div></div>
           <pre>{{ task.get('draft', '') }}</pre>
           <div class="meta">{{ task.get('reason', '') }}</div><br>
-          <div class="actions"><form method="post" action="/api/approve/{{ action_id }}?password={{ password }}"><button class="green">Mark Used / Done</button></form><form method="post" action="/api/skip/{{ action_id }}?password={{ password }}"><button class="danger">Remove</button></form></div>
+          <div class="actions">
+            <form method="post" action="/api/approve/{{ action_id }}?password={{ password }}"><button class="green">Mark Used / Done</button></form>
+            <form method="post" action="/api/skip/{{ action_id }}?password={{ password }}"><button class="danger">Remove</button></form>
+          </div>
         </div>
       {% endfor %}
     {% else %}
-      <div class="card empty"><h2>No output yet.</h2><p class="hint">Run Morning Jarvis Brief or connect Discord/email in Settings.</p></div>
+      <div class="card empty"><h2>No Jarvis output yet.</h2><p class="hint">Run Morning Money Brief, paste an RFQ/email, or build a quote.</p></div>
     {% endif %}
   </div>
 </body>
