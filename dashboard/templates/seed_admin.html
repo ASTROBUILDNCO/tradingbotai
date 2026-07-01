@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Genetics Interest Admin</title>
+  <style>
+    :root{--bg:#080710;--panel:#11101d;--panel2:#17162a;--gold:#f5b942;--text:#f7f3e8;--muted:#a9a3ba;--line:rgba(255,255,255,.12)}*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#080710,#0d0b16);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.wrap{max-width:1180px;margin:0 auto;padding:14px}.hero,.card,.metric{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),var(--panel2));border-radius:22px;padding:16px;box-shadow:0 12px 45px rgba(0,0,0,.28)}.hero{background:linear-gradient(135deg,rgba(245,185,66,.16),rgba(37,211,102,.12));margin-bottom:14px}.kicker{color:var(--gold);font-weight:900;letter-spacing:.1em;text-transform:uppercase;font-size:.72rem}.title{font-size:1.7rem;margin:.2rem 0;font-weight:950}.hint,.meta{color:var(--muted);line-height:1.35}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}.metric b{display:block;color:var(--gold);font-size:.75rem;text-transform:uppercase}.metric span{font-size:1.25rem;font-weight:950}.top{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}.top a{color:var(--text);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:9px 12px;background:rgba(255,255,255,.05);font-weight:850}.card{margin-bottom:14px}.lead{border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:16px;padding:12px;margin:10px 0}.lead b{display:block;color:var(--gold);margin-bottom:3px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:rgba(0,0,0,.22);border:1px solid var(--line);padding:10px;border-radius:12px;color:#f7f3e8;line-height:1.35;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.86rem}.empty{text-align:center;padding:20px}@media(max-width:850px){.metrics{grid-template-columns:1fr}.title{font-size:1.35rem}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="kicker">Genetics Interest Admin</div>
+      <div class="title">Drop list + inquiry control panel</div>
+      <div class="hint">Review submissions manually. Export CSV. This panel is for intake records and compliance review.</div>
+      <div class="top"><a href="/seeds">Public Site</a><a href="/seeds/admin/export?password={{ password }}">Export CSV</a><a href="/?password={{ password }}">Mission Control</a></div>
+    </div>
+
+    <div class="metrics">
+      <div class="metric"><b>Total</b><span>{{ counts.total }}</span></div>
+      <div class="metric"><b>Drop List</b><span>{{ counts.drop_list }}</span></div>
+      <div class="metric"><b>Inquiries</b><span>{{ counts.inquiries }}</span></div>
+    </div>
+
+    <section class="card">
+      <h2>Availability inquiries</h2>
+      {% if inquiries %}
+        {% for item in inquiries %}
+          <div class="lead">
+            <b>{{ item.name }} — {{ item.catalog_interest }}</b>
+            <div class="meta">{{ item.created_at }} • {{ item.email }} • {{ item.phone }} • {{ item.state }} • {{ item.buyer_type }}</div>
+            <div class="meta">Age: {{ item.age_confirmed }} • Legal cert: {{ item.legal_confirmed }} • No payment sent: {{ item.no_payment_sent }}</div>
+            {% if item.message %}<pre>{{ item.message }}</pre>{% endif %}
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="empty hint">No inquiries yet.</div>
+      {% endif %}
+    </section>
+
+    <section class="card">
+      <h2>Drop list</h2>
+      {% if drop_list %}
+        {% for item in drop_list %}
+          <div class="lead">
+            <b>{{ item.name or 'Unnamed' }}</b>
+            <div class="meta">{{ item.created_at }} • {{ item.email }} • {{ item.phone }} • {{ item.state }}</div>
+            <div class="meta">Age: {{ item.age_confirmed }} • Legal cert: {{ item.legal_confirmed }}</div>
+            {% if item.interest %}<pre>{{ item.interest }}</pre>{% endif %}
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="empty hint">No drop-list signups yet.</div>
+      {% endif %}
+    </section>
+  </div>
+</body>
+</html>
