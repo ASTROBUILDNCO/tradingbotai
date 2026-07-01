@@ -5,72 +5,92 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ brand_name }} Genetics</title>
   <style>
-    :root{--bg:#07080b;--panel:#10131a;--panel2:#161b24;--gold:#f5b942;--green:#36d97f;--text:#f7f3e8;--muted:#aab1be;--line:rgba(255,255,255,.13)}
-    *{box-sizing:border-box} body{margin:0;background:radial-gradient(circle at top left,rgba(54,217,127,.18),transparent 30%),linear-gradient(180deg,#07080b,#0c1016 55%,#07080b);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.wrap{max-width:1160px;margin:0 auto;padding:18px}.hero,.card,.strain,.form{border:1px solid var(--line);background:linear-gradient(180deg,var(--panel),var(--panel2));border-radius:24px;padding:18px;box-shadow:0 12px 45px rgba(0,0,0,.28)}.hero{padding:24px;background:linear-gradient(135deg,rgba(245,185,66,.16),rgba(54,217,127,.14));margin-bottom:14px}.kicker{color:var(--gold);font-weight:900;letter-spacing:.12em;text-transform:uppercase;font-size:.75rem}.title{font-size:2.1rem;margin:.25rem 0;font-weight:950}.sub,.hint,.fine{color:var(--muted);line-height:1.45}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}.strains{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.strain b{display:block;color:var(--gold);font-size:1.05rem;margin-bottom:6px}.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:6px 10px;color:#b7ffd3;background:rgba(54,217,127,.08);font-size:.82rem;font-weight:850;margin-top:8px}label{display:block;font-weight:900;margin:10px 0 6px}input,select,textarea{width:100%;border:1px solid var(--line);background:rgba(0,0,0,.28);color:var(--text);border-radius:13px;padding:12px;font-size:1rem}textarea{min-height:120px;resize:vertical}.mini{display:grid;grid-template-columns:1fr 1fr;gap:10px}.check{display:flex;gap:10px;align-items:flex-start;margin:10px 0;color:var(--muted);line-height:1.35}.check input{width:auto;margin-top:3px}button{width:100%;border:0;border-radius:14px;padding:14px;font-size:1rem;font-weight:950;background:linear-gradient(135deg,var(--gold),#ffe4a0);color:#151008;cursor:pointer}.success{border:1px solid rgba(54,217,127,.4);background:rgba(54,217,127,.12);color:#b7ffd3;border-radius:16px;padding:12px;margin-bottom:14px;font-weight:900}.warn{border:1px solid rgba(245,185,66,.35);background:rgba(245,185,66,.10);border-radius:16px;padding:12px;margin:14px 0;color:#ffdf91}.nav{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.nav a{color:var(--text);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:9px 12px;background:rgba(255,255,255,.05);font-weight:850}@media(max-width:900px){.grid,.strains,.mini{grid-template-columns:1fr}.title{font-size:1.55rem}}
+    :root{--bg:#050505;--ink:#f7f1df;--muted:#a9a193;--gold:#f4c363;--orange:#ff7a18;--purple:#8e44ff;--green:#4ade80;--line:rgba(255,255,255,.14);--card:#111111;--card2:#191919}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 20% 0%,rgba(255,122,24,.24),transparent 30%),radial-gradient(circle at 80% 10%,rgba(142,68,255,.22),transparent 28%),linear-gradient(180deg,#050505,#090909 55%,#050505);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.wrap{max-width:1220px;margin:0 auto;padding:18px}.nav{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 0;position:sticky;top:0;z-index:5;background:rgba(5,5,5,.72);backdrop-filter:blur(16px)}.brand{font-weight:1000;letter-spacing:.08em;text-transform:uppercase}.nav a{color:var(--ink);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:9px 12px;background:rgba(255,255,255,.05);font-weight:850}.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:stretch;padding:22px 0}.panel,.card,.form,.diary{border:1px solid var(--line);background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035));border-radius:28px;padding:20px;box-shadow:0 25px 75px rgba(0,0,0,.42)}.kicker{color:var(--gold);font-weight:950;letter-spacing:.14em;text-transform:uppercase;font-size:.75rem}.title{font-size:clamp(2.2rem,7vw,5.9rem);line-height:.9;margin:12px 0;font-weight:1000;letter-spacing:-.07em}.sub{font-size:1.08rem;color:var(--muted);line-height:1.48;max-width:760px}.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{display:inline-block;border:0;border-radius:16px;padding:14px 17px;background:linear-gradient(135deg,var(--gold),#fff0b0);color:#130d05;font-weight:1000;text-decoration:none;cursor:pointer}.btn.dark{border:1px solid var(--line);background:rgba(255,255,255,.07);color:var(--ink)}.hero-shot{min-height:420px;border-radius:28px;position:relative;overflow:hidden;border:1px solid var(--line);background:radial-gradient(circle at 55% 30%,rgba(255,255,255,.20),transparent 8%),radial-gradient(circle at 28% 58%,rgba(255,122,24,.55),transparent 18%),radial-gradient(circle at 66% 62%,rgba(142,68,255,.45),transparent 21%),linear-gradient(135deg,#15110d,#060606)}.hero-shot:before{content:"";position:absolute;inset:18px;border:1px solid rgba(255,255,255,.18);border-radius:22px}.hero-shot .stamp{position:absolute;left:24px;bottom:24px;right:24px;font-weight:1000;font-size:2rem;letter-spacing:-.04em}.strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:10px 0 18px}.stat{border:1px solid var(--line);border-radius:18px;padding:13px;background:rgba(255,255,255,.045)}.stat b{display:block;color:var(--gold);font-size:.73rem;text-transform:uppercase}.stat span{font-size:1.1rem;font-weight:950}.section-head{display:flex;justify-content:space-between;gap:12px;align-items:end;margin:32px 0 14px}.section-head h2{font-size:2rem;margin:0;letter-spacing:-.04em}.hint{color:var(--muted);line-height:1.42}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.card{padding:0;overflow:hidden}.visual{height:220px;position:relative;background:#111}.visual:after{content:"PHOTO SLOT READY";position:absolute;right:12px;top:12px;border:1px solid rgba(255,255,255,.24);border-radius:999px;padding:7px 10px;font-size:.7rem;font-weight:1000;color:rgba(255,255,255,.8);background:rgba(0,0,0,.25)}.visual.trop{background:radial-gradient(circle at 32% 45%,#ff812f,transparent 16%),radial-gradient(circle at 62% 58%,#7c3cff,transparent 18%),linear-gradient(135deg,#311000,#09030e)}.visual.gorilla{background:radial-gradient(circle at 35% 45%,#b8895b,transparent 17%),radial-gradient(circle at 65% 55%,#4ade80,transparent 16%),linear-gradient(135deg,#20150f,#060606)}.visual.sherb{background:radial-gradient(circle at 36% 47%,#ff9d2e,transparent 18%),radial-gradient(circle at 66% 57%,#ffd37a,transparent 16%),linear-gradient(135deg,#2d1605,#080604)}.visual.astro{background:radial-gradient(circle at 35% 40%,#f4c363,transparent 15%),radial-gradient(circle at 68% 58%,#8e44ff,transparent 18%),linear-gradient(135deg,#15111f,#030305)}.visual.og{background:radial-gradient(circle at 34% 48%,#91ff77,transparent 16%),radial-gradient(circle at 66% 52%,#e5d5a6,transparent 14%),linear-gradient(135deg,#071507,#050505)}.body{padding:18px}.body h3{margin:0;font-size:1.35rem;letter-spacing:-.03em}.pill{display:inline-block;margin:8px 6px 0 0;border:1px solid var(--line);border-radius:999px;padding:6px 9px;color:#ffe6a4;background:rgba(244,195,99,.09);font-weight:900;font-size:.78rem}.price{font-size:1.45rem;font-weight:1000;margin-top:14px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.diaries{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.diary b{display:block;color:var(--gold);margin-bottom:8px}label{display:block;font-weight:950;margin:11px 0 6px}input,select,textarea{width:100%;border:1px solid var(--line);background:rgba(0,0,0,.32);color:var(--ink);border-radius:14px;padding:13px;font-size:1rem}textarea{min-height:118px}.mini{display:grid;grid-template-columns:1fr 1fr;gap:10px}.check{display:flex;gap:10px;align-items:flex-start;color:var(--muted);line-height:1.35;margin:10px 0}.check input{width:auto;margin-top:3px}.success{border:1px solid rgba(74,222,128,.45);background:rgba(74,222,128,.14);color:#b8ffd0;border-radius:16px;padding:13px;margin:10px 0;font-weight:950}.warn{border:1px solid rgba(244,195,99,.38);background:rgba(244,195,99,.10);border-radius:16px;padding:13px;color:#ffe2a0}.footer{margin:28px 0;color:var(--muted);font-size:.92rem}@media(max-width:980px){.hero,.grid,.cards,.diaries,.strip,.mini{grid-template-columns:1fr}.nav{position:static}.hero-shot{min-height:280px}.section-head{display:block}}
   </style>
 </head>
 <body>
   <div class="wrap">
-    {% if saved %}<div class="success">Saved. You are on the list. No payment has been accepted through this site.</div>{% endif %}
+    <div class="nav"><div class="brand">{{ brand_name }}</div><div><a href="#menu">Menu</a><a href="#reserve">Reserve</a><a href="#diary">Diary</a></div></div>
+    {% if saved %}<div class="success">Request saved. You are in the queue. No payment was taken on this page.</div>{% endif %}
+
     <section class="hero">
-      <div class="kicker">{{ brand_name }} Genetics</div>
-      <h1 class="title">Small-batch seed brand. Compliance-first drop list.</h1>
-      <p class="sub">Join the drop list or submit a genetics inquiry. This page is designed for brand building and lawful customer intake only. Availability, eligibility, documentation, and payment options are reviewed manually before any transaction.</p>
-      <div class="nav"><a href="#catalog">Catalog</a><a href="#drop">Join Drop List</a><a href="#inquiry">Seed Inquiry</a><a href="#compliance">Compliance</a></div>
-    </section>
-
-    <section class="card" id="catalog">
-      <div class="kicker">Catalog Direction</div>
-      <h2>Seed line interest</h2>
-      <p class="hint">Use these as brand/drop-list categories. They are not automatic checkout items.</p>
-      <div class="strains">
-        {% for item in catalog %}
-          <div class="strain">
-            <b>{{ item.name }}</b>
-            <div class="hint">{{ item.type }}</div>
-            <p>{{ item.profile }}</p>
-            <span class="pill">{{ item.status }}</span>
-          </div>
-        {% endfor %}
+      <div class="panel">
+        <div class="kicker">Small-batch Midwest genetics</div>
+        <h1 class="title">Citrus. Cookies. Gas.</h1>
+        <p class="sub">A premium seed brand built around limited auto drops, transparent grow diaries, and documented pheno hunts. Current focus: Tropicana Cookies Auto, Gorilla Cookies Auto, Orange Sherbet Auto, future Astro Cookies Auto S3, and an OG Kush keeper hunt.</p>
+        <div class="cta"><a class="btn" href="#reserve">Reserve / Checkout Request</a><a class="btn dark" href="#diary">Follow the grow diary</a></div>
       </div>
+      <div class="hero-shot"><div class="stamp">ASTRO COOKIES<br>DEVELOPMENT FILE</div></div>
     </section>
 
-    <div class="grid">
-      <section class="form" id="drop">
-        <h2>Join the seed drop list</h2>
-        <p class="hint">Best for future releases, strain updates, content, and availability alerts.</p>
-        <form method="post" action="/seeds/waitlist">
-          <div class="mini"><div><label>Name</label><input name="name" required></div><div><label>Email</label><input name="email" type="email" required></div></div>
-          <div class="mini"><div><label>Phone</label><input name="phone"></div><div><label>State</label><input name="state" placeholder="OH"></div></div>
-          <label>Interest</label><textarea name="interest" placeholder="Which line are you interested in? What kind of drop alerts do you want?"></textarea>
-          <label class="check"><input type="checkbox" name="age_confirmed" required> I confirm I am 21+.</label>
-          <label class="check"><input type="checkbox" name="legal_confirmed" required> I understand I am responsible for following all laws in my jurisdiction.</label>
-          <button type="submit">Join Drop List</button>
-        </form>
-      </section>
+    <div class="strip">
+      <div class="stat"><b>Current Gorilla Cookies Auto</b><span>10</span></div>
+      <div class="stat"><b>Current Orange Sherbet Auto</b><span>7</span></div>
+      <div class="stat"><b>Current Tropicana Cookies Auto</b><span>2</span></div>
+      <div class="stat"><b>Payment Lane</b><span>Crypto request</span></div>
+    </div>
 
-      <section class="form" id="inquiry">
-        <h2>Seed availability inquiry</h2>
-        <p class="hint">Use this to request a manual review. No sale is final and no payment should be sent from this form.</p>
+    <div class="section-head" id="menu"><div><div class="kicker">Featured Menu</div><h2>Current + future drops</h2></div><div class="hint">Prices are request-based until eligibility, availability, destination, and payment path are reviewed.</div></div>
+    <div class="cards">
+      {% for item in catalog %}
+      <article class="card">
+        <div class="visual {{ item.visual }}"></div>
+        <div class="body">
+          <h3>{{ item.name }}</h3>
+          <div><span class="pill">{{ item.badge }}</span><span class="pill">{{ item.status }}</span></div>
+          <p class="hint">{{ item.profile }}</p>
+          <div class="price">{{ item.inventory }}</div>
+          <p class="hint">{{ item.future }}</p>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+    <div class="grid" id="reserve" style="margin-top:28px">
+      <section class="form">
+        <div class="kicker">Checkout-style request</div>
+        <h2>Reserve pack / request invoice</h2>
+        <p class="hint">This works like checkout intake, but payment is not taken here. Best current lane: manual crypto invoice after review.</p>
         <form method="post" action="/seeds/inquiry">
           <div class="mini"><div><label>Name</label><input name="name" required></div><div><label>Email</label><input name="email" type="email" required></div></div>
           <div class="mini"><div><label>Phone</label><input name="phone"></div><div><label>State</label><input name="state" placeholder="OH"></div></div>
-          <label>Catalog interest</label><select name="catalog_interest"><option>Tropicana Cookie Line</option><option>Midwest Utility Pack</option><option>Private Breeder / White Label Inquiry</option><option>General question</option></select>
-          <label>Buyer type</label><select name="buyer_type"><option>Adult collector / home grow jurisdiction</option><option>Licensed business / operator</option><option>Breeder / collaborator</option><option>Other</option></select>
-          <label>Message</label><textarea name="message" placeholder="Tell us what you are looking for. Do not send payment here."></textarea>
-          <label class="check"><input type="checkbox" name="age_confirmed" required> I confirm I am 21+.</label>
-          <label class="check"><input type="checkbox" name="legal_confirmed" required> I understand eligibility and shipping/payment options must be reviewed before any sale.</label>
-          <label class="check"><input type="checkbox" name="no_payment_sent" required> I understand this is not checkout and I should not send payment until manually approved.</label>
-          <button type="submit">Submit Inquiry</button>
+          <label>Choose line</label><select name="catalog_interest"><option>Gorilla Cookies Auto</option><option>Orange Sherbet Auto</option><option>Tropicana Cookies Auto</option><option>Astro Cookies Auto S3 future drop</option><option>OG Kush pheno hunt future drop</option></select>
+          <label>Preferred payment path</label><select name="buyer_type"><option>USDC crypto invoice after approval</option><option>BTC crypto invoice after approval</option><option>ETH crypto invoice after approval</option><option>Card payment when approved processor is live</option><option>Wholesale / larger request</option></select>
+          <label>Request details</label><textarea name="message" placeholder="Pack size, quantity, questions, state, and any notes. Example: 1 pack Gorilla Cookies Auto, crypto invoice preferred."></textarea>
+          <label class="check"><input type="checkbox" name="age_confirmed" required> I confirm I am legally allowed to submit this request in my jurisdiction.</label>
+          <label class="check"><input type="checkbox" name="legal_confirmed" required> I understand eligibility, destination, product availability, and payment path must be reviewed before any transaction.</label>
+          <label class="check"><input type="checkbox" name="no_payment_sent" required> I understand this is not automatic checkout and no payment should be sent until manually approved.</label>
+          <button class="btn" type="submit">Submit Checkout Request</button>
+        </form>
+      </section>
+
+      <section class="form">
+        <div class="kicker">Drop list</div>
+        <h2>Follow future releases</h2>
+        <p class="hint">Use this for Astro Cookies Auto S3, OG Kush hunt updates, grow diary posts, and limited stock alerts.</p>
+        <form method="post" action="/seeds/waitlist">
+          <div class="mini"><div><label>Name</label><input name="name" required></div><div><label>Email</label><input name="email" type="email" required></div></div>
+          <div class="mini"><div><label>Phone</label><input name="phone"></div><div><label>State</label><input name="state" placeholder="OH"></div></div>
+          <label>What do you want updates on?</label><textarea name="interest" placeholder="Astro Cookies Auto S3, OG Kush hunt, Tropicana Cookies Auto, new photos, grow diary, etc."></textarea>
+          <label class="check"><input type="checkbox" name="age_confirmed" required> I confirm I am legally allowed to join this list.</label>
+          <label class="check"><input type="checkbox" name="legal_confirmed" required> I understand I am responsible for following all laws in my jurisdiction.</label>
+          <button class="btn" type="submit">Join Drop List</button>
         </form>
       </section>
     </div>
 
-    <section class="card" id="compliance">
-      <div class="kicker">Compliance-first</div>
-      <h2>No automatic checkout. No minors. No illegal jurisdictions.</h2>
-      <div class="warn">This site captures interest and inquiries only. Final availability, buyer eligibility, permitted destination, documentation, and payment method must be reviewed manually before any transaction.</div>
-      <p class="fine">The brand does not provide legal advice. Customers are responsible for knowing and following their local laws. Do not submit false information. Do not send payment until a lawful order path is confirmed in writing.</p>
+    <div class="section-head" id="diary"><div><div class="kicker">Grow diary / proof</div><h2>Build trust like a real breeder</h2></div><div class="hint">Use this section to post your real photos and selection notes as the brand grows.</div></div>
+    <div class="diaries">
+      <div class="diary"><b>Current inventory drop</b><p>Gorilla Cookies Auto 10, Orange Sherbet Auto 7, Tropicana Cookies Auto 2. Keep the first menu honest and limited.</p></div>
+      <div class="diary"><b>Astro Cookies Auto S3 goal</b><p>Document parent selection, keeper traits, germ tests, structure, terp direction, and why the line deserves the Astro name.</p></div>
+      <div class="diary"><b>OG Kush keeper hunt</b><p>Do not rush the OG line. Build demand with photos, notes, and a real keeper story before release.</p></div>
+    </div>
+
+    <section class="panel" style="margin-top:28px">
+      <div class="kicker">Compliance note</div>
+      <h2>No processor games. No fake claims.</h2>
+      <div class="warn">Crypto invoice requests are manual. Card payments should only go live after a processor approves the exact business model in writing. This page does not take payment automatically.</div>
+      <p class="footer">Customers are responsible for their local laws. Upload your own product/grow photos later; do not use breeder photos you do not own.</p>
     </section>
   </div>
 </body>
