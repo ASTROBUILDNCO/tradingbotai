@@ -16,6 +16,7 @@ templates = Jinja2Templates(directory=os.path.join(os.path.dirname(__file__), "t
 orchestrator = Orchestrator()
 DASHBOARD_PASSWORD = os.getenv("DASHBOARD_PASSWORD", "change_me_now")
 SEED_BRAND_NAME = os.getenv("SEED_BRAND_NAME", "Astro Genetics")
+SOLANA_PAYMENT_WALLET = os.getenv("SOLANA_PAYMENT_WALLET", "Solana wallet will be shown after manual order review")
 
 
 @app.on_event("startup")
@@ -28,6 +29,16 @@ def verify_password(request: Request) -> str:
     if not password or password != DASHBOARD_PASSWORD:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid or missing password")
     return password
+
+
+def _seed_context(request: Request):
+    return {
+        "request": request,
+        "brand_name": SEED_BRAND_NAME,
+        "catalog": catalog(),
+        "solana_wallet": SOLANA_PAYMENT_WALLET,
+        "saved": request.query_params.get("saved") in {"1", "waitlist", "inquiry"},
+    }
 
 
 def _money(value: object, default: float = 0.0) -> float:
@@ -75,29 +86,31 @@ def _save_quick_quote_to_tracker(form) -> None:
 
 @app.get("/seeds", response_class=HTMLResponse)
 async def seed_brand(request: Request):
-    return templates.TemplateResponse(
-        "seed_brand.html",
-        {
-            "request": request,
-            "brand_name": SEED_BRAND_NAME,
-            "catalog": catalog(),
-            "saved": request.query_params.get("saved") in {"1", "waitlist", "inquiry"},
-        },
-    )
+    return templates.TemplateResponse("seed_brand.html", _seed_context(request))
+
+
+@app.get("/astrogenetics", response_class=HTMLResponse)
+async def astro_genetics(request: Request):
+    return templates.TemplateResponse("seed_brand.html", _seed_context(request))
+
+
+@app.get("/astro-genetics", response_class=HTMLResponse)
+async def astro_genetics_dash(request: Request):
+    return RedirectResponse(url="/astrogenetics", status_code=302)
 
 
 @app.post("/seeds/waitlist")
 async def seed_waitlist(request: Request):
     form = await request.form()
     save_drop_list(form)
-    return RedirectResponse(url="/seeds?saved=waitlist", status_code=303)
+    return RedirectResponse(url="/astrogenetics?saved=waitlist", status_code=303)
 
 
 @app.post("/seeds/inquiry")
 async def seed_inquiry(request: Request):
     form = await request.form()
     save_inquiry(form)
-    return RedirectResponse(url="/seeds?saved=inquiry", status_code=303)
+    return RedirectResponse(url="/astrogenetics?saved=inquiry", status_code=303)
 
 
 @app.get("/seeds/admin", response_class=HTMLResponse)
