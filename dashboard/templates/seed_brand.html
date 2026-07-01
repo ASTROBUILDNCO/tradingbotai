@@ -15,7 +15,7 @@
 
     <section class="hero">
       <div class="panel">
-        <div class="soltag">Preferred: SOL / USDC on Solana</div>
+        <div class="soltag">$10 per seed • Preferred: SOL / USDC on Solana</div>
         <div class="kicker">Small-batch Midwest genetics</div>
         <h1 class="title">Citrus. Cookies. Gas.</h1>
         <p class="sub">A premium seed brand built around limited auto drops, transparent grow diaries, documented pheno hunts, and fast manual crypto invoices. Current focus: Tropicana Cookies Auto, Gorilla Cookies Auto, Orange Sherbet Auto, future Astro Cookies Auto S3, and an OG Kush keeper hunt.</p>
@@ -25,20 +25,20 @@
     </section>
 
     <div class="strip">
-      <div class="stat"><b>Current Gorilla Cookies Auto</b><span>10</span></div>
-      <div class="stat"><b>Current Orange Sherbet Auto</b><span>7</span></div>
-      <div class="stat"><b>Current Tropicana Cookies Auto</b><span>2</span></div>
+      <div class="stat"><b>Price</b><span>$10 / seed</span></div>
+      <div class="stat"><b>Gorilla Cookies Auto</b><span>10 seeds</span></div>
+      <div class="stat"><b>Orange / Tropicana</b><span>7 / 2 seeds</span></div>
       <div class="stat sol"><b>Payment Lane</b><span>SOL / USDC-SOL</span></div>
     </div>
 
-    <div class="section-head" id="menu"><div><div class="kicker">Featured Menu</div><h2>Current + future drops</h2></div><div class="hint">Request-based until eligibility, availability, destination, and payment path are reviewed. Stock photos are placeholders until your real shots are uploaded.</div></div>
+    <div class="section-head" id="menu"><div><div class="kicker">Featured Menu</div><h2>Current + future drops</h2></div><div class="hint">Simple pricing: $10 per seed. Final Solana invoice is manually confirmed after availability and eligibility review.</div></div>
     <div class="cards">
       {% for item in catalog %}
       <article class="card">
         <div class="visual {{ item.visual }}"></div>
         <div class="body">
           <h3>{{ item.name }}</h3>
-          <div><span class="pill">{{ item.badge }}</span><span class="pill">{{ item.status }}</span><span class="pill sol">Solana invoice ready</span></div>
+          <div><span class="pill">{{ item.badge }}</span><span class="pill">{{ item.status }}</span><span class="pill sol">$10/seed</span></div>
           <p class="hint">{{ item.profile }}</p>
           <div class="price">{{ item.inventory }}</div>
           <p class="hint">{{ item.future }}</p>
@@ -50,14 +50,14 @@
     <div class="grid" id="reserve" style="margin-top:28px">
       <section class="form">
         <div class="kicker">Checkout-style request</div>
-        <h2>Reserve pack / request Solana invoice</h2>
-        <p class="hint">This works like checkout intake, but payment is not taken here. Best current lane: manual SOL or USDC-on-Solana invoice after review.</p>
+        <h2>Reserve seeds / request Solana invoice</h2>
+        <p class="hint">Pricing is $10 per seed. Example: 1 seed = $10, 3 seeds = $30, 10 seeds = $100. USDC-on-Solana matches the USD subtotal; SOL amount is quoted manually at the current rate.</p>
         <form method="post" action="/seeds/inquiry">
           <div class="mini"><div><label>Name</label><input name="name" required></div><div><label>Email</label><input name="email" type="email" required></div></div>
           <div class="mini"><div><label>Phone</label><input name="phone"></div><div><label>State</label><input name="state" placeholder="OH"></div></div>
           <label>Choose line</label><select name="catalog_interest"><option>Gorilla Cookies Auto</option><option>Orange Sherbet Auto</option><option>Tropicana Cookies Auto</option><option>Astro Cookies Auto S3 future drop</option><option>OG Kush pheno hunt future drop</option></select>
           <label>Preferred payment path</label><select name="buyer_type"><option>USDC on Solana invoice after approval</option><option>SOL invoice after approval</option><option>Card payment when approved processor is live</option><option>BTC only if requested</option><option>Wholesale / larger request</option></select>
-          <label>Request details</label><textarea name="message" placeholder="Pack size, quantity, questions, state, and notes. Example: 1 pack Gorilla Cookies Auto, USDC on Solana preferred."></textarea>
+          <label>Request details</label><textarea name="message" placeholder="Example: 3 Gorilla Cookies Auto seeds = $30. USDC on Solana preferred. Add questions, state, and notes here."></textarea>
           <label class="check"><input type="checkbox" name="age_confirmed" required> I confirm I am legally allowed to submit this request in my jurisdiction.</label>
           <label class="check"><input type="checkbox" name="legal_confirmed" required> I understand eligibility, destination, product availability, and payment path must be reviewed before any transaction.</label>
           <label class="check"><input type="checkbox" name="no_payment_sent" required> I understand this is not automatic checkout and no payment should be sent until manually approved.</label>
@@ -82,7 +82,7 @@
 
     <div class="section-head" id="diary"><div><div class="kicker">Grow diary / proof</div><h2>Build trust like a real breeder</h2></div><div class="hint">Stock photos make it look good today. Your real photos and selection notes will make it believable.</div></div>
     <div class="diaries">
-      <div class="diary"><b>Current inventory drop</b><p>Gorilla Cookies Auto 10, Orange Sherbet Auto 7, Tropicana Cookies Auto 2. Keep the first menu honest and limited.</p></div>
+      <div class="diary"><b>Current inventory drop</b><p>Gorilla Cookies Auto 10 seeds, Orange Sherbet Auto 7 seeds, Tropicana Cookies Auto 2 seeds. Keep the first menu honest and limited.</p></div>
       <div class="diary"><b>Astro Cookies Auto S3 goal</b><p>Document parent selection, keeper traits, germ tests, structure, terp direction, and why the line deserves the Astro name.</p></div>
       <div class="diary"><b>OG Kush keeper hunt</b><p>Do not rush the OG line. Build demand with photos, notes, and a real keeper story before release.</p></div>
     </div>
@@ -90,7 +90,7 @@
     <section class="panel" style="margin-top:28px">
       <div class="kicker">Compliance + payments</div>
       <h2>Solana first. Card later when approved.</h2>
-      <div class="warn">SOL / USDC-on-Solana invoice requests are manual. Card payments should only go live after a processor approves the exact business model in writing. This page does not take payment automatically.</div>
+      <div class="warn">SOL / USDC-on-Solana invoice requests are manual. USDC-on-Solana is easiest because the order is priced in USD at $10 per seed. SOL invoices are quoted at the current rate when manually approved.</div>
       <p class="footer">Customers are responsible for their local laws. Stock photos are placeholders from free stock sources; replace with your own verified product/grow photos as soon as possible.</p>
     </section>
   </div>
